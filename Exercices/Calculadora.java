@@ -8,19 +8,65 @@ Criar calculadora com visor que dê display dos numeros na forma:
 #..# ...# ...# ...# #..# #... #... #..# #..# #..#
 #..# ...# ...# ...# #..# #... #... #..# #..# #..#
 .... .... .##. .##. .##. .##. .##. .... .##. .##.
-#..# ...# #... ...# ...# ...# #..# ...# #..# ...#   
+#..# ...# #... ...# ...# ...# #..# ...# #..# ...#
 #..# ...# #... ...# ...# ...# #..# ...# #..# ...#
 .##. .... .##. .##. .... .##. .##. .... .##. .##.
 
 "/":47, "-":45, "+":43, "*":42
 */
 
+/* Pedro Vieira 2/22/2020 */
+
 public class Calculadora {
 
-    public static double decoder(String input) {
+    public static void writer(int number) {
+        /* TODO: Make possible resizing the font 
+        (but its to much work to draw the numbers again and dont now another way :D)  */
+
+        // Change font
+        String a = "#";
+        String b = ".";
+                                  
+        String[][] digits = {//   0     1       2        3       4       5       6       7       8       9  
+                             {b+a+a+b,b+b+b+b,b+a+a+b,b+a+a+b,b+b+b+b,b+a+a+b,b+a+a+b,b+a+a+b,b+a+a+b,b+a+a+b}, // 0 
+                             {a+b+b+a,b+b+b+a,b+b+b+a,b+b+b+a,a+b+b+a,a+b+b+b,a+b+b+b,a+b+b+a,a+b+b+a,a+b+b+a}, // 1
+                             {a+b+b+a,b+b+b+a,b+b+b+a,b+b+b+a,a+b+b+a,a+b+b+b,a+b+b+b,a+b+b+a,a+b+b+a,a+b+b+a}, // 2
+                             {b+b+b+b,b+b+b+b,b+a+a+b,b+a+a+b,b+a+a+b,b+a+a+b,b+a+a+b,b+b+b+b,b+a+a+b,b+a+a+b}, // 3
+                             {a+b+b+a,b+b+b+a,a+b+b+b,b+b+b+a,b+b+b+a,b+b+b+a,a+b+b+a,b+b+b+a,a+b+b+a,b+b+b+a}, // 4
+                             {a+b+b+a,b+b+b+a,a+b+b+b,b+b+b+a,b+b+b+a,b+b+b+a,a+b+b+a,b+b+b+a,a+b+b+a,b+b+b+a}, // 5
+                             {b+a+a+b,b+b+b+b,b+a+a+b,b+a+a+b,b+b+b+b,b+a+a+b,b+a+a+b,b+b+b+b,b+a+a+b,b+a+a+b}, // 6
+                            };
+        
+        int size = 0, number1 = number;
+
+        // how "big" is the number 
+        while(number1 != 0){
+            number1 /= 10;
+            size++;
+        }
+
+        int size1 = size;
+        int[] k = new int[size];
+
+        while(size > 0){
+            int pop = number % 10;
+            number /= 10;
+            k[size-1] = pop;
+            size--;
+        }
+
+        for(int i = 0;i <= 6; i++){
+            for(int j = 0; j <= size1-1; j++){
+                System.out.print(" " + digits[i][k[j]]);
+            }
+            System.out.println();
+        }
+    }
+
+    public static void decoder(String input) {
         
         int size = input.length();
-        double[] numbers = new double[size];
+        int[] numbers = new int[size];
         int index_numbers = 0;
 
         for(int i = 0; i < size; i++){
@@ -39,15 +85,15 @@ public class Calculadora {
             }
         }
 
-        return calc(numbers);
+        writer(calc(numbers));;
     } 
 
-    public static double calc(double[] numbers){
+    public static int calc(int[] numbers){
 
        /* TODO: The loops used to calculate the operations do unnecessary iterations
           TODO: When only one number is passed it returns 0 */
 
-        double result = 0;
+        int result = 0;
         int size = numbers.length;
 
          /* Beacause all the acceptable input is of the form 20+100-100
@@ -79,7 +125,7 @@ public class Calculadora {
 
         for(int i = 0; i < size; i++){
             if( i % 2 != 0 ){
-              switch ((int)numbers[i]) {
+              switch (numbers[i]) {
                     case '-':
                         result = numbers[i-1] - numbers [i+1];
                         numbers[i-1] = result;
@@ -119,9 +165,8 @@ public class Calculadora {
             if(input.equals("exit")){
                 break;
             }
-            System.out.println(decoder(input));
+            decoder(input);
         }
-
         scan.close();
 
     }
