@@ -68,6 +68,7 @@ public class Calculadora {
         int size = input.length();
         int[] numbers = new int[size];
         int index_numbers = 0;
+        boolean operations = false;
 
         for(int i = 0; i < size; i++){
             if( Character.isDigit(input.charAt(i)) ){
@@ -79,22 +80,28 @@ public class Calculadora {
             } else if (input.charAt(i) == '+' || input.charAt(i) == '-' ||
                        input.charAt(i) == '*' || input.charAt(i) == '/' ){
                     
+                    operations = true;
+
                     index_numbers++;
                     numbers[index_numbers] = input.charAt(i);
                     index_numbers++;
             }
         }
 
-        writer(calc(numbers));;
+        writer(calc(numbers,operations));
     } 
 
-    public static int calc(int[] numbers){
+    public static int calc(int[] numbers, boolean operations){
 
-       /* TODO: The loops used to calculate the operations do unnecessary iterations
-          TODO: When only one number is passed it returns 0 */
+       /* TODO: The loops used to calculate the operations do unnecessary iterations*/
 
         int result = 0;
         int size = numbers.length;
+
+        // Special case 1 number passed
+        if(!operations){
+            return numbers[0];
+        }
 
          /* Beacause all the acceptable input is of the form 20+100-100
            the signal are going to stay at the odd positions and the numbers at the even positions
@@ -102,7 +109,7 @@ public class Calculadora {
         
         for(int i = 0; i < size; i++){
             if( i % 2 != 0 ){
-                switch ((int)numbers[i]) {
+                switch (numbers[i]) {
                         case '/':
                             result = numbers[i-1] / numbers [i+1];
                             /* Set the values of the numbers already calculated
