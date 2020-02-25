@@ -1,3 +1,6 @@
+
+package week2;
+
 import java.util.Scanner;
 
 public class ext1 {
@@ -44,6 +47,6 @@ public class ext1 {
 
         losangulo(scanner.nextInt());
 
-
+        scanner.close();
     }
 }

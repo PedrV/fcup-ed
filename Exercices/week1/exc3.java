@@ -1,3 +1,6 @@
+
+package week1;
+
 public class exc3 {
     
     static boolean isPolindrome(String word){

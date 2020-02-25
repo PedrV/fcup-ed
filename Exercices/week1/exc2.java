@@ -1,4 +1,6 @@
 
+package week1;
+
 public class exc2 {
 
     static void primes(int n, boolean prime[]){

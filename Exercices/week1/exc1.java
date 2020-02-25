@@ -1,3 +1,6 @@
+
+package week1;
+
 public class exc1 {
 
     public static void topBotton(char a, char b , int n){

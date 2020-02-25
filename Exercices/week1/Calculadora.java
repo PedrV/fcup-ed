@@ -1,3 +1,6 @@
+
+package week1;
+
 import java.util.Scanner;
 
 /* Desafio Semana numero 1:

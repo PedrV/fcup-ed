@@ -1,3 +1,6 @@
+
+package week1;
+
 public class ext1 {
 
     static void losangulo(final int n) {

@@ -1,3 +1,6 @@
+
+package week1;
+
 public class ext4 {
 
     public static void writer(String word, String word1, int n){
