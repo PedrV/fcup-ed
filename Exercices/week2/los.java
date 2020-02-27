@@ -3,7 +3,7 @@ package week2;
 
 import java.util.Scanner;
 
-public class ext1 {
+public class los {
 
     static void losangulo(final int n) {
 
