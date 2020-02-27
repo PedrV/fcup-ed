@@ -42,7 +42,7 @@ public class spiral {
         counter++;
 
     for(int i = 2; i <= n;){
-
+     //TODO counter should be after the partial limits
         if(counter < limits){
             switch (move) {
                 case 'r':
