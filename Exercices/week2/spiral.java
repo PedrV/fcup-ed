@@ -1,6 +1,5 @@
 package week2;
 
-
 /* 
     Desafio semana 2: Criar espiral de numeros que de cordenadas de numeros:
                     e.g 1: (0,0)
@@ -33,73 +32,64 @@ package week2;
 
 public class spiral {
 
+    public static void spiral(int n) {
 
-    public static void spiral (int n){
-    
-        int x = 0, y = 0, limits = 2, counter = 0; 
+        int x = 0, y = 0, limits = 2, counter = 0;
         double partial_limits = 1;
         char move = 'r';
         counter++;
 
-    for(int i = 2; i <= n;){
-     //TODO counter should be after the partial limits
-        if(counter < limits){
-            switch (move) {
-                case 'r':
-                    x++;
-                    counter++;
-                    if( counter == partial_limits ){
-                        move = 'd';
-                        partial_limits = limits;
-                    } else if ( counter > partial_limits ){
-                        move = 'd';
-                    }
-                    break;
-                case 'l':
-                    x--;
-                    counter++;
-                    if( counter == partial_limits ){
-                        move = 'u';
-                        partial_limits = limits;
-                    } else if ( counter > partial_limits ){
-                        move = 'u';
-                    }
-                    break;
-                case 'u':
-                    y++;
-                    counter++;
-                    if( counter == partial_limits ){
-                        move = 'r';
-                        partial_limits = limits;
-                    } else if ( counter > partial_limits ){
-                        move = 'r';
-                    }
-                    break;
-                case 'd':
-                    y--;
-                    counter++;
-                    if( counter == partial_limits ){
-                        move = 'l';
-                        partial_limits = limits;
-                    } else if ( counter > partial_limits ){
-                        move = 'l';
-                    }
-                    break;
+        for (int i = 2; i <= n;) {
+            // TODO counter should be after the partial limits
+            if (counter <= limits) {
+                switch (move) {
+                    case 'r':
+                        x++;
+                        if (counter == partial_limits) {
+                            move = 'd';
+                            partial_limits = limits;
+                        }
+                        counter++;
+                        break;
+                    case 'l':
+                        x--;
+                        if (counter == partial_limits) {
+                            move = 'u';
+                            partial_limits = limits;
+                        }
+                        counter++;
+                        break;
+                    case 'u':
+                        y++;
+                        if (counter == partial_limits) {
+                            move = 'r';
+                            partial_limits = limits;
+                        }
+                        counter++;
+                        break;
+                    case 'd':
+                        y--;
+                        if (counter == partial_limits) {
+                            move = 'l';
+                            partial_limits = limits;
+                        } counter++;
+                        break;
+                }
+                i++;                
+                //System.out.println("Number: " + (i-1) + " Coordenates: (" + x + "," + y + ")");
+            } else {
+                counter = 1;
+                limits += 2;
+                partial_limits = Math.ceil(limits / 2);
             }
-            i++;
-        } else {
-            counter = 0;
-            limits += 2;
-            partial_limits = Math.ceil(limits/2);
         }
+        System.out.println("(" + x + "," + y + ")");
     }
 
-}
-
-
-    public static void main (String[] args){
-
-        spiral(30);
+    public static void main(String[] args) {
+        Scanner stdin = new Scanner();
+        spiral(stdin.nextInt());
+        stdin.close();
     }
 
 }
