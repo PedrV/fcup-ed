@@ -15,16 +15,14 @@ Criar calculadora com visor que dê display dos numeros na forma:
 #..# ...# #... ...# ...# ...# #..# ...# #..# ...#
 .##. .... .##. .##. .... .##. .##. .... .##. .##.
 
-"/":47, "-":45, "+":43, "*":42
 */
 
 /* Pedro Vieira 2/22/2020 */
 
-public class Calculadora {
+public class _182 {
 
     public static void writer(int number) {
-        /* TODO: Make possible resizing the font 
-        (but its to much work to draw the numbers again and dont now another way :D)  */
+        /* TODO: Make possible resizing the font */
 
         // Change font
         String a = "#";
@@ -106,7 +104,7 @@ public class Calculadora {
             return numbers[0];
         }
 
-         /* Beacause all the acceptable input is of the form 20+100-100
+         /* Because all the acceptable input is of the form 20+100-100
            the signal are going to stay at the odd positions and the numbers at the even positions
            so it's handy to just consider the cases i%2 != 0*/
         

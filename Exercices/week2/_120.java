@@ -3,7 +3,9 @@ package week2;
 
 import java.util.Scanner;
 
-public class los {
+//losangulo
+
+public class _120 {
 
     static void losangulo(final int n) {
 

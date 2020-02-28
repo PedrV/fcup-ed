@@ -2,7 +2,9 @@ package week2;
 
 import java.util.Scanner;
 
-public class paliandros {
+// paliandros
+
+public class _121 {
 
     public static void normalizer(String input){
 

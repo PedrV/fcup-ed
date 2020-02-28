@@ -1,5 +1,7 @@
 package week2;
 
+import java.util.Scanner;
+
 /* 
     Desafio semana 2: Criar espiral de numeros que de cordenadas de numeros:
                     e.g 1: (0,0)
@@ -30,7 +32,9 @@ package week2;
             ------- X --------
      */
 
-public class spiral {
+public class _122v1 {
+
+    // Complexity O(n)
 
     public static void spiral(int n) {
 
@@ -40,7 +44,6 @@ public class spiral {
         counter++;
 
         for (int i = 2; i <= n;) {
-            // TODO counter should be after the partial limits
             if (counter <= limits) {
                 switch (move) {
                     case 'r':
@@ -76,7 +79,6 @@ public class spiral {
                         break;
                 }
                 i++;                
-                //System.out.println("Number: " + (i-1) + " Coordenates: (" + x + "," + y + ")");
             } else {
                 counter = 1;
                 limits += 2;
@@ -87,7 +89,7 @@ public class spiral {
     }
 
     public static void main(String[] args) {
-        Scanner stdin = new Scanner();
+        Scanner stdin = new Scanner(System.in);
         spiral(stdin.nextInt());
         stdin.close();
     }
