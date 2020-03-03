@@ -1,4 +1,3 @@
-
 package week2;
 // spiral
 
@@ -34,23 +33,16 @@ package week2;
                     ...
             -3 -2 -1 0  +1  +2 +3
             ------- X --------~
-
-            0,0 1 1
-            1,1 3 9 
-            2,2 5 25
-            3,3 7 49
-            4,4 9 81
-            5,5 11 121
      */
 
-// Complexity O(start_coods(n))
+// Complexity O(sqrt(n))
 
-public class _122v2 {
+public class _122v2bac {
 
     public static int start_coods = 0;
     public static long start_value = 0;
 
-/*      public static void cordenadas(int num) {
+ /*    public static void cordenadas(int num) {
 
         if(num < 9) {
             start_coods = 0;
@@ -62,7 +54,8 @@ public class _122v2 {
         if(floor % 2 != 0) floor--; 
         start_coods = (int) (floor / 2);
         start_value = (start_coods + 1)*(start_coods + 1);  
-    } */ 
+        
+    }  */
 
     public static void spiral(int n) {
 
@@ -72,22 +65,21 @@ public class _122v2 {
                 start_value = ((i-1+i-1) + 1)*((i-1+i-1) + 1); 
             }
         }
-     
+
         int y = start_coods, x = start_coods, final_limit = 2 * x + 1;
-    
+        
         // in case of the value is already the perfect square stop !
         if(start_value != n){
             // first right step
             x++;
             start_value++;
-        }   
-   
+        }    
 
         int public_limit = final_limit;
         int moves = 1;
 
         while (start_value < n) { 
-            if(public_limit > 0){ 
+            if(public_limit > 0){ // wait faz x+y +1 com estes valores que da do x = 12523 + 12523
             switch (moves) {
                 case 1: 
                     y--; 
@@ -106,9 +98,9 @@ public class _122v2 {
                     public_limit--;
                     break;
             }
-            start_value++; 
-        } else {  
-            moves++;
+            start_value++; // wait é suposto começar no 627302116 ? wait é o valor que ta aqui no start_value deixa fzr as contas
+        } else {            // yup é esse o valor que esta aqui 627_302_116 contas feitas ? NOP
+            moves++;        // É suposto ele comecar em 627_352_209 wtf entao a squre esta a mandar valor mal
             public_limit = final_limit + 1;
         }
     }
