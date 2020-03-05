@@ -19,7 +19,7 @@ Criar calculadora com visor que dê display dos numeros na forma:
 
 /* Pedro Vieira 2/22/2020 */
 
-public class _182 {
+public class ED182 {
 
     public static void writer(int number) {
         /* TODO: Make possible resizing the font */

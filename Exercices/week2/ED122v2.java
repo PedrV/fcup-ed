@@ -45,7 +45,7 @@ package week2;
 
 // Complexity O(start_coods(n))
 
-public class _122v2 {
+public class ED122v2 {
 
     public static int start_coods = 0;
     public static long start_value = 0;

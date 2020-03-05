@@ -126,7 +126,7 @@ class Rectangle {
 
 }
 
-public class _186 {
+public class ED186 {
 
     public static void main (String[] args){
 

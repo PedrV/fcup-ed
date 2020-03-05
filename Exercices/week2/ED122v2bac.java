@@ -37,7 +37,7 @@ package week2;
 
 // Complexity O(sqrt(n))
 
-public class _122v2bac {
+public class ED122v2bac {
 
     public static int start_coods = 0;
     public static long start_value = 0;

@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 // stats
 
-public class _183 {
+public class ED183 {
 
   public static void main(String[] args) {
 	

@@ -32,7 +32,7 @@ import java.util.Scanner;
             ------- X --------
      */
 
-public class _122v1 {
+public class ED122v1 {
 
     // Complexity O(n)
 

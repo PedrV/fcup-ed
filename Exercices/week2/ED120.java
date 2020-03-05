@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 //losangulo
 
-public class _120 {
+public class ED120 {
 
     static void losangulo(final int n) {
 

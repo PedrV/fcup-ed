@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 // paliandros
 
-public class _121 {
+public class ED121 {
 
     public static void normalizer(String input){
 
