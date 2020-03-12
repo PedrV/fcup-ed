@@ -60,5 +60,6 @@ public class ED121 {
             normalizer(input[i]);   
         }
 
+        scan.close();
     }
 }

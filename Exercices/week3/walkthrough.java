@@ -37,8 +37,8 @@ class Aluno {
         a.nome = "Pedro";
         a.numero = 201905272;
 
-        Aluno b = new Aluno("Pedro Vieira", 201905272);
-        Aluno d = new Aluno();
+/*        Aluno b = new Aluno("Pedro Vieira", 201905272);
+        Aluno d = new Aluno(); */
        
         /* System.out.println("b = " + b);
         System.out.println("d = " + d);
