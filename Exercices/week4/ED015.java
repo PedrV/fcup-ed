@@ -9,12 +9,34 @@ class Leters{
     private String[] words;
 
     public Leters (int rows, int cols) {
+        // 0 0 is the signal to stop the program
         if (rows == 0 && cols == 0) {
             System.exit(0);
         }
+
         this.rows = rows;
         this.cols = cols;
         game = new char[rows][cols];
+    }
+
+    public void finder(String word) {
+        int size = word.length();
+        int index = 0;
+
+        
+    }
+
+    public boolean checkSurroundings (int i, int j, String word, int index) {
+        for(int k = -1; k < 2; k += 2) {
+            if ((i+k) % rows > 0 && (j+k) % cols > 0){
+                if (game[i+k][j] == word.charAt(index)){ // check above and bellow
+                    return true;
+                } else if (game[i][j+k] == word.charAt(index)){ // check left and right
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     public void passTheWords (Scanner scan) {
