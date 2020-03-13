@@ -4,40 +4,56 @@ import java.util.Scanner;
 
 
 /* 
-.O...
-.....
-...O.
-...O.
-....O
+............
+............
+............
+............
+......O.....
+.......O....
+.....OOO....
+............
+............
+............
+............
+............
  */
 
 class DeadOrAlive {
-    private final char DEAD = 'O';
-    private final char ALIVE = '.';
+    private final char DEAD = '.';
+    private final char ALIVE = 'O';
     private int rows, cols, generations;
-    private char[][] allCels;
+    private char[][] colony;
 
 
     public DeadOrAlive(int rows, int cols, int generations){
         this.rows = rows;
         this.cols = cols;
         this.generations = generations;
-        allCels = new char[rows][cols];
+        colony = new char[rows][cols];
     }
 
     public void generateCells(Scanner scan){
         for(int i = 0; i < rows; i++){
             String s = scan.nextLine();
             for(int j = 0; j < cols; j++){
-                allCels[i][j] = s.charAt(j);
+                colony[i][j] = s.charAt(j);
             }
+        }
+    }
+
+    public void printCells(char[][] colony){
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                System.out.print(colony[i][j]);
+            }
+            System.out.println();
         }
     }
 
     public void printCells(){
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                System.out.print(allCels[i][j]);
+                System.out.print(colony[i][j]);
             }
             System.out.println();
         }
@@ -48,13 +64,13 @@ class DeadOrAlive {
 
         /* verify if operation is out of bounds doing the (%),
         if it goes to a negative index, the (%) will be negative,
-        if it goes beyond the index the modules   */
+        if it goes to the index the module would be 0  */
 
         // view the line above the point, each coord is
         /* (i - 1, j - 1), (i - 1, j), (i - 1, j + 1) */ 
         for(int k = -1; k < 2; k++){
             if((j+k) % cols > 0 && (i-1 % rows > 0)){  
-                if(allCels[i-1][j+k] == 'O'){
+                if(colony[i-1][j+k] == ALIVE){
                     count++;
                 }
             }
@@ -64,7 +80,7 @@ class DeadOrAlive {
         /* (i + 1, j - 1), (i + 1, j), (i + 1, j + 1) */
         for(int k = -1; k < 2; k++){
             if((j+k) % cols > 0 && (i+1) % rows > 0){
-                if(allCels[i+1][j+k] == 'O'){
+                if(colony[i+1][j+k] == ALIVE){
                     count++;
                 }
             }
@@ -74,7 +90,7 @@ class DeadOrAlive {
         /* (i, j - 1), (i, j + 1) */
         for(int k = -1; k < 2; k += 2){
             if((j+k) % cols > 0){
-                if(allCels[i][j+k] == 'O'){
+                if(colony[i][j+k] == ALIVE){
                     count++;
                 }
             }
@@ -82,7 +98,47 @@ class DeadOrAlive {
 
         return count;
     }
+
+    public void simulateGenerations (){
+        char[][] newColony = new char[rows][cols];
+
+        while (generations >= 0) {
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < cols; j++) {
+                    int neighborhood = countAlive(i, j);
+                    if (colony[i][j] == ALIVE) {
+                        if (neighborhood <= 1){
+                            newColony[i][j] = DEAD;
+                        } else if (neighborhood >= 4){
+                            newColony[i][j] = DEAD;
+                        } else if (neighborhood >= 2 && neighborhood <=3){
+                            newColony[i][j] = ALIVE;
+                        }
+                    } else if (colony[i][j] == DEAD){
+                        if (neighborhood == 3) {
+                            newColony[i][j] = ALIVE; 
+                        } else {
+                            newColony[i][j] = DEAD;
+                        }
+                    }
+                }
+            }
+            printCells(newColony);
+            System.out.println();
+            colonyCopy(newColony, colony);
+            generations--;
+        }
+    }
+
+    private void colonyCopy(char[][] targetColony, char[][] nextColony){
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                nextColony[i][j] = targetColony[i][j];
+            }
+        }
+    }
 }
+
 
 public class ED088 {
     public static void main (String[] args) {
@@ -92,6 +148,7 @@ public class ED088 {
         scan.nextLine(); // consume new line inserted after getting next int
 
         simulation1.generateCells(scan);
-        simulation1.countAlive(4, 4);
+        
+        simulation1.simulateGenerations();
     }
 }
