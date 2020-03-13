@@ -81,14 +81,24 @@ class Leters{
 public class ED015 {
     public static void main (String[] args){
         Scanner scan = new Scanner(System.in);
-        Leters game1 = new Leters (scan.nextInt(), scan.nextInt());
 
-        scan.nextLine(); // consume the new line left by nextInt
+        int value1 = -1, value2 = -1;
 
-        game1.getBoard(scan);
-        game1.passTheWords(scan);
-        System.out.println(game1.getHowManyWords());
-        game1.printWords();
+        while (value1 != 0 && value2 != 0) {
+            value1 = scan.nextInt();
+            value2 = scan.nextInt();
+
+            Leters game1 = new Leters (value1, value2);
+
+            scan.nextLine(); // consume the new line left by nextInt
+
+            game1.getBoard(scan);
+            game1.printBoard();
+
+            game1.passTheWords(scan);
+            System.out.println(game1.getHowManyWords());
+            game1.printWords();
+        }
 
     }
 }
