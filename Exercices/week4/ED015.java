@@ -19,24 +19,53 @@ class Leters{
         game = new char[rows][cols];
     }
 
-    public void finder(String word) {
-        int size = word.length();
+    public void startSearch (String word) {
+        int i = 0, j = 0;
         int index = 0;
 
-        
+        outerloop:
+        for (; i < rows; i++) {
+            for (; j < cols; j++) {
+                if ((word.charAt(index) == game[i][j])){
+                    index++;
+                    break outerloop;
+                }       
+            }
+        }
+        finder(word, index, i, j);
     }
 
-    public boolean checkSurroundings (int i, int j, String word, int index) {
-        for(int k = -1; k < 2; k += 2) {
-            if ((i+k) % rows > 0 && (j+k) % cols > 0){
-                if (game[i+k][j] == word.charAt(index)){ // check above and bellow
-                    return true;
-                } else if (game[i][j+k] == word.charAt(index)){ // check left and right
-                    return true;
+    private void finder(String word,int index, int i, int j) {
+        int size = word.length();
+
+        for(; i < rows; i++){
+            for(; j < cols; j++) {
+                int neighborhood = checkSurroundings(i, j, word, index);
+                if (neighborhood == 9 || neighborhood == 11) { // the result is up or down
+                    index++;
+                    finder(word,index, neighborhood-10, j);
+                } else if (neighborhood == 19 || neighborhood == 21) { // the result is left or right
+                    index++;
+                    finder(word,index, i, neighborhood-20);
                 }
             }
         }
-        return false;
+    }
+
+    private int checkSurroundings (int i, int j, String word, int index) {
+        for(int k = -1; k < 2; k += 2) {
+            if ((i+k) % (rows+1) > 0){
+                if (game[i+k][j] == word.charAt(index)){ // check above and bellow
+                    return k+10;
+                }
+            } 
+            if ((j+k) % (cols+1) >= 0) {
+                if (game[i][j+k] == word.charAt(index)){ // check left and right
+                    return k+20;
+                }
+            }
+        }
+        return 0;
     }
 
     public void passTheWords (Scanner scan) {
@@ -82,23 +111,20 @@ public class ED015 {
     public static void main (String[] args){
         Scanner scan = new Scanner(System.in);
 
-        int value1 = -1, value2 = -1;
+        //int value1 = -1, value2 = -1;
 
-        while (value1 != 0 && value2 != 0) {
-            value1 = scan.nextInt();
-            value2 = scan.nextInt();
+       //while (value1 != 0 && value2 != 0) {
+            //value1 = scan.nextInt();
+            //value2 = scan.nextInt();
 
-            Leters game1 = new Leters (value1, value2);
+            Leters game1 = new Leters (scan.nextInt(), scan.nextInt());
 
             scan.nextLine(); // consume the new line left by nextInt
 
             game1.getBoard(scan);
-            game1.printBoard();
-
             game1.passTheWords(scan);
-            System.out.println(game1.getHowManyWords());
-            game1.printWords();
-        }
+            game1.startSearch("DHL");
+        //}
 
     }
 }

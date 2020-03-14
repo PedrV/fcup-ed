@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 
 /* 
-............
+.O..........
 ............
 ............
 ............
@@ -62,7 +62,7 @@ class DeadOrAlive {
     public int countAlive(int i, int j){
         int count = 0;   
 
-        /* verify if operation is out of bounds doing the (%),
+        /* verify if operation (j+k) or (i+k) is out of bounds doing the (%),
         if it goes to a negative index, the (%) will be negative,
         if it goes to the index the module would be 0  */
 
