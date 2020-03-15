@@ -2,13 +2,22 @@ package week4;
 
 import java.util.Scanner;
 
+
+/* 
+SLCDA
+OFGED
+PJKLE
+ARTEL */
+
 class Leters{
     private int rows, cols;
     private char[][] game;
     private int howManyWords;
     private String[] words;
+    private char[][] gameResult;
+    private int inputs;
 
-    public Leters (int rows, int cols) {
+    public Leters (int rows, int cols, int inputs) {
         // 0 0 is the signal to stop the program
         if (rows == 0 && cols == 0) {
             System.exit(0);
@@ -16,56 +25,116 @@ class Leters{
 
         this.rows = rows;
         this.cols = cols;
+        this.inputs = inputs;
         game = new char[rows][cols];
+        gameResult = new char[rows][cols];
+        setResult();  
     }
 
-    public void startSearch (String word) {
-        int i = 0, j = 0;
+
+    public void giveResults () {
+        int index  = 0;
+        for (int i = 0; i < howManyWords; i++) {
+            startSearch(words[i],0,0,index);
+        }
+    }
+
+    private void startSearch (String word, int i, int j, int index) {
+        boolean up = false;
+        boolean lr = false;
+
+        for (i = 0; i < rows; i++) {
+            for (j = 0; j < cols; j++) {
+                if (game[i][j] == word.charAt(index)){
+                    up = isUP(word, i, j, index+1);
+                    lr = isLR(word, i, j, index+1);
+                }
+                if (up) {
+                    writeUP(i, j, word);
+                    return;
+                } else if (lr) {
+                    writeLR(i, j, word);
+                    return;
+                }
+            }
+        }
+    }
+
+    private void writeUP (int i, int j, String word) {
         int index = 0;
-
-        outerloop:
-        for (; i < rows; i++) {
-            for (; j < cols; j++) {
-                if ((word.charAt(index) == game[i][j])){
-                    index++;
-                    break outerloop;
-                }       
+        gameResult[i][j] = word.charAt(index);
+        index++;
+        while(word.length() > index) {
+            for(int k = -1; k < 2; k += 2) {
+                if (((i+k) >= 0 && (i+k) < rows) && index < word.length()){
+                    if (game[i+k][j] == word.charAt(index)){ // check above and bellow
+                        i = i+k;
+                        gameResult[i][j] = word.charAt(index);
+                        index++;
+                    }
+                } 
             }
         }
-        finder(word, index, i, j);
     }
 
-    private void finder(String word,int index, int i, int j) {
+    private void writeLR (int i, int j, String word) {
+        int index = 0;
+        gameResult[i][j] = word.charAt(index);
+        index++;
+
+        while(word.length() > index) {
+            for(int k = -1; k < 2; k += 2) {
+                if (((j+k) >= 0 && (j+k) < cols) && index < word.length()){
+                    if (game[i][j+k] == word.charAt(index)){ // check above and bellow
+                        j = j+k;
+                        gameResult[i][j] = word.charAt(index);
+                        index++;
+                    }
+                } 
+            }
+        }
+    }
+
+    private boolean isUP (String word, int i, int j, int index) {
         int size = word.length();
-
-        for(; i < rows; i++){
-            for(; j < cols; j++) {
-                int neighborhood = checkSurroundings(i, j, word, index);
-                if (neighborhood == 9 || neighborhood == 11) { // the result is up or down
-                    index++;
-                    finder(word,index, neighborhood-10, j);
-                } else if (neighborhood == 19 || neighborhood == 21) { // the result is left or right
-                    index++;
-                    finder(word,index, i, neighborhood-20);
-                }
+        int index_copy = index;
+        while ( size > 1) {
+            for(int k = -1; k < 2; k += 2) {
+                if (((i+k) >= 0 && (i+k) < rows) && index < word.length()){
+                    if (game[i+k][j] == word.charAt(index)){ // check above and bellow
+                        i = i+k;
+                        index++;
+                    }
+                } 
             }
+            index_copy++;
+            if (index != index_copy) { // if the char hasn't occurred
+                return false;
+            }
+            size--;
         }
+        return true;
     }
 
-    private int checkSurroundings (int i, int j, String word, int index) {
-        for(int k = -1; k < 2; k += 2) {
-            if ((i+k) % (rows+1) > 0){
-                if (game[i+k][j] == word.charAt(index)){ // check above and bellow
-                    return k+10;
-                }
-            } 
-            if ((j+k) % (cols+1) >= 0) {
-                if (game[i][j+k] == word.charAt(index)){ // check left and right
-                    return k+20;
+    private boolean isLR (String word, int i, int j, int index) {
+        int size = word.length();
+        int index_copy = index;
+        while ( size > 1) {
+            for(int k = -1; k < 2; k += 2) {
+                if ( ((j+k) >= 0 && (j+k) < cols) && index < word.length()) {
+                    if (game[i][j+k] == word.charAt(index)){ // check left and right
+                        j = j+k;
+                        index++;
+                    }
                 }
             }
+            index_copy++;
+            if (index != index_copy) { // if the char hasn't occurred
+                return false;
+            }
+            size--;
         }
-        return 0;
+        return true;
     }
 
     public void passTheWords (Scanner scan) {
@@ -87,9 +156,27 @@ class Leters{
         }
     }
 
+    public void printResult() {
+        System.out.println("Input #" + inputs);
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                System.out.print(gameResult[i][j]);
+            }
+            System.out.println();
+        }
+    }
+
     public void printWords() {
         for (int i = 0; i < howManyWords; i++) {
             System.out.println(words[i]);
+        }
+    }
+
+    private void setResult () {
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                gameResult[i][j] = '.';
+            }
         }
     }
 
@@ -110,20 +197,22 @@ class Leters{
 public class ED015 {
     public static void main (String[] args){
         Scanner scan = new Scanner(System.in);
-
+        int inputs = 1;
         //int value1 = -1, value2 = -1;
 
        //while (value1 != 0 && value2 != 0) {
             //value1 = scan.nextInt();
             //value2 = scan.nextInt();
 
-            Leters game1 = new Leters (scan.nextInt(), scan.nextInt());
+            Leters game1 = new Leters (scan.nextInt(), scan.nextInt(), inputs);
 
             scan.nextLine(); // consume the new line left by nextInt
 
             game1.getBoard(scan);
             game1.passTheWords(scan);
-            game1.startSearch("DHL");
+            game1.giveResults();
+            game1.printResult();
+            //inputs++;
         //}
 
     }
