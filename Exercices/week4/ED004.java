@@ -5,7 +5,7 @@ import java.util.Scanner;
 class Galo {
     private int dimensions;
     private char[][] board;
-    private boolean dot = false;
+    private boolean dot = false, win = false;
 
     public Galo (int dimensions){
         this.dimensions = dimensions;
@@ -32,24 +32,24 @@ class Galo {
 
     public void checkWinner(){
         for(int k = 0; k < dimensions; k++){
-            if (verify(k, 0, 0, 1)){   // check rows
+            if (verify(k, 0, 0, 1, 0, 1)){   // check rows
                 declareWinner(board[k][0]);
                 return;
-            } else if (verify(0, 0, k, 1)){   // check cols
+            } else if (verify(0, 1, k, 0, 0, 1)){   // check cols
                 declareWinner(board[0][k]);
                 return;
             }
         }
 
-        if (verify(0, 1, 0, 1)){ // check diagonal
+        if (verify(0, 1, 0, 1, 0, 1)){ // check diagonal
             declareWinner(board[0][0]);
             return;
-        } else if(verify(0, -1, dimensions-1, 1)){ // check next diagonal
+        } else if(verify(0, 1, dimensions-1, -1, 0, 1)){ // check next diagonal
             declareWinner(board[0][dimensions-1]);
             return;
         }
 
-        if(dot){
+        if(dot && !win){
             declareWinner('N');
             return;
         } else {
@@ -58,8 +58,8 @@ class Galo {
         }
     }
 
-    private boolean verify(int i, int incri, int j, int incrj){
-        for(; j < dimensions; j+=incrj, i += incri){
+    private boolean verify(int i, int incri, int j, int incrj, int start, int incrstart){
+        for(; start < dimensions; j+=incrj, i += incri, start+=incrstart){
             if(board[i][j] == '.'){
                 dot = true;
                 return false;
@@ -74,16 +74,17 @@ class Galo {
                 }
             }
         }
+        win = true;
         return true;
     }
 
     public void declareWinner(char winner){
         if (winner == 'T'){
-            System.out.println("It's a tie!");
+            System.out.println("Empate");
         } else if (winner == 'X' || winner == 'O') {
-            System.out.println("The winner is " + winner);
+            System.out.println("Ganhou o " + winner);
         } else {
-            System.out.println("Incomplete Game! Please Finnish!");
+            System.out.println("Jogo incompleto");
         }
     }
 

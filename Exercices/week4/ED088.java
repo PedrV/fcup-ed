@@ -65,7 +65,7 @@ class DeadOrAlive {
         // view the line above the point, each coord is
         /* (i - 1, j - 1), (i - 1, j), (i - 1, j + 1) */ 
         for(int k = -1; k < 2; k++){
-            if( ((j+k) >= 0 && (j+k) < cols) && ((i-1) > 0) ){  
+            if( ((j+k) >= 0 && (j+k) < cols) && ((i-1) >= 0) ){  
                 if(colony[i-1][j+k] == ALIVE){
                     count++;
                 }
@@ -119,8 +119,8 @@ class DeadOrAlive {
                     }
                 }
             }
-            printCells(newColony);
             System.out.println();
+            printCells();
             colonyCopy(newColony, colony);
             generations--;
         }
