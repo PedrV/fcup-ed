@@ -24,4 +24,18 @@ public class Pair <A,B> {
     public void setSecond (B new_value) {
         second = new_value;
     } 
+
+    public boolean equals (Pair<A,B> pair) {
+        if(first.equals(pair.toString()) && second.equals(pair.second)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public String toString() {
+        String s = "(";
+        s += first + "," + second + ")";
+        return s;
+    } 
 }

@@ -3,14 +3,32 @@ package week6;
 
 public class TestImpl {
     public static void main(String[] args) {
+        Pair <String,Integer> pair = new Pair<>("pedro",18);
+        Pair <String,Integer> pair2 = new Pair<>("pedro",18);
+        Pair <String,Integer> pair1 = new Pair<>("vieira",18);
         SinglyLinkedList<Integer> list = new SinglyLinkedList<>();
-        
-        list.addLast(1);
-        list.addLast(2);
-        list.addLast(3);
+        SinglyLinkedList<String> list1 = new SinglyLinkedList<>();
 
-        System.out.println(list.toString());
-        System.out.println(list.firstOcc(2));
+
+        list1.addLast("krone");
+        list1.addLast("top");
+        list1.addLast("pedro");
+        list1.addLast("vieira");
+        list1.addLast("pppppppppp");
+        list1.addLast("GG's boys");
+
+/*        list1.addLast("campos");
+        list1.addLast("vieira");
+        list1.addLast("Estruturas");
+
+        list1.addFirst("Dados");
+        list1.addFirst("value");
+        
+        list1.addElement("position", 5); */
+
+
+        System.out.println(list1.getLast());
+        System.out.println(list1.toString());
 
 
 /* 

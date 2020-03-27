@@ -1,14 +1,17 @@
 package week6;
 
+import jdk.nashorn.internal.ir.ReturnNode;
 
 public class SinglyLinkedList <T> {
     private Node <T> first;
     private int size;
+    private Node <T> last;
 
     // creates empty linked list, the first Node points to de final node first->null, size 0
     public SinglyLinkedList () {
         first = null;
         size = 0;
+        last = first;
     }
 
 
@@ -24,12 +27,17 @@ public class SinglyLinkedList <T> {
     // creates new node pointing to first (null no caso de ser a lista vazia)
     public void addFirst (T value) {
         Node <T> newNode = new Node <>(value, first);
-        first = newNode;
+        if (isEmpty()) {
+            first = newNode;
+            last = newNode;
+        } else {
+            first = newNode;
+        }
         size++;
     }
 
 
-    public void addElement (T value, int position) {
+    public void add (T value, int position) {
         Node <T> cur = first;
         Node <T> newNode = new Node <>(value, null);
 
@@ -53,20 +61,17 @@ public class SinglyLinkedList <T> {
     }
 
     public void addLast (T value) {
-        Node <T> newNode = new Node <> (value, null);
-        if (isEmpty()) {
-            first = newNode;
-        } else {
-            Node <T> cur = first;
+      Node<T> newNode = new Node<T>(value, null); 
+      if (isEmpty()) {
+        first = newNode;
+        last = newNode;
+      } else {
+        last.setNext(newNode);
+        last = newNode;
+      }
+      size++;
+   } 
 
-            while (cur.getNext() != null) {
-                cur = cur.getNext();
-            }
-
-            cur.setNext(newNode);
-        }
-        size++;
-    }
 
     public T getFirst () {
 
@@ -77,24 +82,7 @@ public class SinglyLinkedList <T> {
         }
     }
 
-
-    public T getLast () {
-
-        if (!isEmpty()) {
-
-            Node <T> cur = first;
-            while (cur.getNext() != null) {
-                cur = cur.getNext();
-            }
-            return cur.getValue();
-
-        } else {
-            return null;
-        }
-
-    }
-
-    public T getElemet (int index) {
+    public T get (int index) {
         if (isEmpty()) {
             return null;
         } else {
@@ -111,6 +99,18 @@ public class SinglyLinkedList <T> {
     }
 
 
+    public T getLast () {
+
+        if (!isEmpty()) {
+           return (last.getValue());
+        } else {
+            return null;
+        }
+
+    }
+
+
+
     public void removeFirst () {
         if (isEmpty()) {
             return;
@@ -120,20 +120,7 @@ public class SinglyLinkedList <T> {
         }
     }
 
-    public void removeLast () {
-        if (isEmpty()) {
-            return;
-        } else {
-            Node <T> cur = first;
-            while (cur.getNext() != null) {
-                cur = cur.getNext(); 
-            }
-            cur.setNext(null);
-            size--;
-        }
-    }
-
-    public T removeElement (int index) {
+    public T remove (int index) {
         if (isEmpty()) {
             return null;
         } else {
@@ -143,7 +130,6 @@ public class SinglyLinkedList <T> {
             if(index == 0) {    // remove first element is already defined
                 removed = cur.getValue();
                 removeFirst();
-                size--;
                 return removed;
             }
 
@@ -161,6 +147,21 @@ public class SinglyLinkedList <T> {
             return null;
         }
     }
+
+    public void removeLast () {
+        if (isEmpty()) {
+            return;
+        } else {
+            Node <T> cur = first;
+            while (cur.getNext() != null) {
+                cur = cur.getNext(); 
+            }
+            cur.setNext(null);
+            size--;
+        }
+    }
+
+
 
     public SinglyLinkedList<T> copy () {
         SinglyLinkedList<T> copy = new SinglyLinkedList<>();
@@ -183,7 +184,7 @@ public class SinglyLinkedList <T> {
         if (size == 0) {return;}
 
         for(int i = 0, j = 0; i < sizecopy; i++, j += 2) {
-            addElement(cur.getValue(), j);
+            add(cur.getValue(), j);
             cur = cur.getNext();
         }
     }
@@ -202,6 +203,8 @@ public class SinglyLinkedList <T> {
         return count;
     }
 
+
+
     public void removeAll (T value) {
         SinglyLinkedList<T> copy = copy(); // copy list so the index do not get affected when elements are removed
         Node <T> cur = copy.first;
@@ -210,12 +213,26 @@ public class SinglyLinkedList <T> {
 
         while (rep >= 0) {
             if (cur.getValue().equals(value)) {
-                removeElement(i); // each time a element is deleted the size gets smaller by one so the index should aswell
+                remove(i); // each time a element is deleted the size gets smaller by one so the index should aswell
                 i--;
             }
             cur = cur.getNext();
             i++;
             rep--;
+        }
+    }
+
+    public void removeEvenPos () {
+
+        for(int i = 0; i < size; i++) {
+            remove(i);
+        }
+    }
+
+    public void removeOddPos () {
+
+        for(int i = 1; i < size; i++) {
+            remove(i);
         }
     }
 
@@ -233,6 +250,37 @@ public class SinglyLinkedList <T> {
             cur = cur.getNext();
         }
         return null;
+    }
+
+    public Integer lastOcc (T value) { 
+        Node<T> cur = first;
+        int index = -1;
+
+        for(int i = 0; i < size; i++) {
+            if (cur.getValue().equals(value)) {
+                index = i;
+            }
+            cur = cur.getNext();
+        }
+
+        if (index != -1) {
+            return index;
+        }
+
+        return null;
+    }
+
+    public void join (SinglyLinkedList <T> list) {
+
+        Node <T> cur = first;
+        Node <T> curList = list.first;
+
+        for(int i = 0; i < size; i++){ cur = cur.getNext(); } // go to last pos
+
+        for(int i = 0; i < list.size; i++) {
+            addLast(curList.getValue());
+            curList = curList.getNext();
+        }
     }
 
     public String toString () {

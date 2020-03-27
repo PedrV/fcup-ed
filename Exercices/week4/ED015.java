@@ -76,7 +76,7 @@ class Leters{
             }
         }
     }
-
+    
     private void writeLR (int i, int j, String word) {
         int index = 0;
         gameResult[i][j] = word.charAt(index);
@@ -94,7 +94,7 @@ class Leters{
             }
         }
     }
-
+    //TODO once the up or down side is encountered, the other should be blocked
     private boolean isUP (String word, int i, int j, int index) {
         int size = word.length();
         int index_copy = index;
@@ -116,6 +116,7 @@ class Leters{
         return true;
     }
 
+     //TODO once the left or right side is encountered, the other should be blocked
     private boolean isLR (String word, int i, int j, int index) {
         int size = word.length();
         int index_copy = index;
@@ -187,6 +188,7 @@ class Leters{
                 game[i][j] = s.charAt(j);
             }
         }
+        System.out.println("Words to be found:");
     }
 
     public int getHowManyWords (){
