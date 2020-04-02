@@ -1,7 +1,5 @@
 package week6;
 
-import jdk.nashorn.internal.ir.ReturnNode;
-
 public class SinglyLinkedList <T> {
     private Node <T> first;
     private int size;
@@ -211,14 +209,14 @@ public class SinglyLinkedList <T> {
 
         int rep = count(value), i = 0; // count how many elements are supposed to get deleted
 
-        while (rep >= 0) {
+        while (rep > 0) {
             if (cur.getValue().equals(value)) {
                 remove(i); // each time a element is deleted the size gets smaller by one so the index should aswell
                 i--;
+                rep--;
             }
             cur = cur.getNext();
             i++;
-            rep--;
         }
     }
 
@@ -284,7 +282,7 @@ public class SinglyLinkedList <T> {
     }
 
     public String toString () {
-        String s = "[";
+        String s = "{";
 
         Node <T> cur = first;
 
@@ -297,7 +295,7 @@ public class SinglyLinkedList <T> {
             cur = cur.getNext(); 
         }
 
-        s += "]";
+        s += "}";
         return s;
     }
 }

@@ -8,14 +8,26 @@ public class TestImpl {
         Pair <String,Integer> pair1 = new Pair<>("vieira",18);
         SinglyLinkedList<Integer> list = new SinglyLinkedList<>();
         SinglyLinkedList<String> list1 = new SinglyLinkedList<>();
+        SinglyLinkedList<Pair> list3 = new SinglyLinkedList<>();
 
 
         list1.addLast("krone");
         list1.addLast("top");
         list1.addLast("pedro");
         list1.addLast("vieira");
+        list1.addLast("GG's boys");
         list1.addLast("pppppppppp");
         list1.addLast("GG's boys");
+        list1.addLast("GG's boys");
+        list1.addLast("GG's boys");
+
+        
+        list3.addFirst(pair);
+        list3.addFirst(pair1);
+        list3.addFirst(pair2);
+
+        System.out.println(list3.toString());
+
 
 /*        list1.addLast("campos");
         list1.addLast("vieira");
@@ -27,8 +39,8 @@ public class TestImpl {
         list1.addElement("position", 5); */
 
 
-        System.out.println(list1.getLast());
-        System.out.println(list1.toString());
+/*         System.out.println(list1.getLast());
+        System.out.println(list1.toString()); */
 
 
 /* 
