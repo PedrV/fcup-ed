@@ -2,32 +2,20 @@ package week7;
 
 public class TestImple {
     public static void main (String[] args) {
-        DoublyLinkedList<Integer> list = new DoublyLinkedList<> ();
-
-        list.addFirst(1);
+        CircularLinkedList<String> list = new CircularLinkedList<>();
         
-        list.addFirst(134);
-        
-        list.addFirst(13);
-
-        list.addFirst(31);
-        
-        list.addFirst(13124);
-        
-        list.addFirst(11241113);
-
-
-        System.out.println(list.toString());
-        
-        list.clear();
+        list.addFirst("Vieira");
+        list.addFirst("Campos");
+        list.addFirst("Pedro");
+/* 
+        list.addLast("is");
+        list.addLast("the");
+        list.addLast("best"); */
 
         System.out.println(list.toString());
 
-        list.add(42, 0);
-        list.addLast(777);
-
-        
         System.out.println(list.toString());
+
 
     }
 }

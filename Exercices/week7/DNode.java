@@ -38,39 +38,3 @@ public class DNode<T> {
     }
 
 }
-
-
-
-
-/* public class DNode<T> {
-    private DNode<T> next;
-    private DNode<T> prev;
-    private T value;
-
-    DNode (T value, DNode<T> prev, DNode<T> next) {
-        this.next = next;
-        this.prev = prev;
-        this.value = value;
-    }
-
-    public DNode<T> getNext() {
-        return next;
-    }
-
-    public DNode<T> getPrev() {
-        return prev;
-    }
-
-    public T getValue() {
-        return value;
-    }
-
-    public void setNext(DNode<T> nnext) {
-        next = nnext;
-    }
-
-    public void setPrev(DNode<T> nprev) {
-        prev = nprev;
-    }
-   
-} */

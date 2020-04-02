@@ -1,9 +1,10 @@
 package week7;
 
 public class DoublyLinkedList <T> {
-        private DNode<T> first;
-        private DNode<T> last;
-        private int size;
+        private DNode<T> first; // first em DoublyLinkedList não é um "titulo" como nas LinkedLists, aqui é um node verdadeiro, que
+        private DNode<T> last; // tem valor null e que sinaliza o final da lista, o mesmo com o last. Podia ser feito com "titulos"
+        private int size;      // mas assim evita-se alguns casos especiais e simplifica-se o codigo, em linkedlist ve-se first = "algo", last = "algo"
+                               // aqui nunca se mexe no valor do first e last, são nodes sentinela
 
         DoublyLinkedList () {
             size = 0;

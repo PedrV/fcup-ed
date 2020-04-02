@@ -1,8 +1,8 @@
 package week6;
 
 public class SinglyLinkedList <T> {
-    private Node <T> first;
-    private int size;
+    private Node <T> first; // ser last ou first é quase como um titulo na SinglyLinkedList, o primeiro node é o primiero
+    private int size;       // porque tem esse "titulo", o last é last, porque tem esse titulo (e quem tem esse titulo aponta para null)
     private Node <T> last;
 
     // creates empty linked list, the first Node points to de final node first->null, size 0
