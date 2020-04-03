@@ -30,7 +30,7 @@ class WhoLoses {
             if (loser.equals("Carlos")) {
                 System.out.println("O Carlos nao se livrou");
             } else {
-                System.out.println("O Carlos livrou-se (coitado do " + loser + ")!");
+                System.out.println("O Carlos livrou-se (coitado do " + loser + "!)");
             }
 
             how_many--;
@@ -62,7 +62,7 @@ class WhoLoses {
 }
 
 
-public class E006 {
+public class ED006 {
     public static void main(String args []) {
         Scanner scan = new Scanner(System.in);
         WhoLoses game = new WhoLoses();

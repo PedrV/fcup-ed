@@ -43,7 +43,7 @@ package week2;
             5,5 11 121
      */
 
-// Complexity O(start_coods(n))
+// Complexity O(n)
 
 public class ED122v2 {
 
