@@ -4,9 +4,9 @@ import java.util.Scanner;
 
 
 class WhoLoses {
-    int size = 0;
-    CircularLinkedList<String> list_names = new CircularLinkedList<>();
-    String[] namesAray; 
+    private int size = 0;
+    private CircularLinkedList<String> list_names = new CircularLinkedList<>();
+    private String[] namesAray; 
 
     public void getInput (Scanner scan) {
 
