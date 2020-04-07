@@ -90,7 +90,7 @@ class SupermarketSim {
             // 1º check if the client of each line is out already
             // 2º send the active client to the line with less people    
             // 2.1º if ties follow instructions
-            // 3º repeat until queue is empty
+            // 3º repeat until queue is empty (profit?!)
 
             // 1º
             for (int i = 0; i < number_of_lines; i++) {
@@ -194,6 +194,7 @@ class SupermarketSim {
 
             }
 
+            // 3º repeat (profit?!)
         }
 
         for (int i = 0, line = 0; i < number_of_lines; i++, line += 2) {
