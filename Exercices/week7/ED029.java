@@ -59,6 +59,7 @@ class PlaneSimulation {
 
     private void controlFlights () {
         int time = 1;
+
         boolean empty = false;
 
         while (!taking_off.isEmpty() || !land.isEmpty()) { 
@@ -83,6 +84,11 @@ class PlaneSimulation {
                  if ( Integer.parseInt(taking_off.first()) < Integer.parseInt(land.first()) ) { // the plane who arrives first gets cleared first
 
                     int arrival_time = Integer.parseInt(taking_off.dequeue());
+
+                    if (arrival_time > time) {
+                        time = arrival_time;
+                    }
+
                     updatePlacard( (time-arrival_time), taking_off.dequeue() );
 
                     time++; // each plane takes 1 minute to take off
@@ -90,6 +96,11 @@ class PlaneSimulation {
                 } else if ( Integer.parseInt(taking_off.first()) > Integer.parseInt(land.first()) ) { // the plane who arrives first gets cleared first
 
                     int arrival_time = Integer.parseInt(land.dequeue());
+
+                    if (arrival_time > time) {
+                        time = arrival_time;
+                    }
+
                     updatePlacard( (time-arrival_time), land.dequeue() );
 
                     time++; // each plane takes 1 minute to land
@@ -97,6 +108,11 @@ class PlaneSimulation {
                 } else if ( Integer.parseInt(taking_off.first()) == Integer.parseInt(land.first()) ) { // if 2 planes arrive at the same time, one landing and another taking off, whos landing has priority
 
                     int arrival_time = Integer.parseInt(land.dequeue());
+
+                    if (arrival_time > time) {
+                        time = arrival_time;
+                    }
+
                     updatePlacard( (time-arrival_time), land.dequeue());
 
                     time++; // each plane takes 1 minute to land
@@ -110,6 +126,9 @@ class PlaneSimulation {
 
 
     private void updatePlacard (int delay, String planeName) {
+        if(delay < 0) {
+            delay = 0;
+        }
 
         for(int i = 0; i < placard.length ; i += 2) {
             if (placard[i].equals(planeName)) {

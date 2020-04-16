@@ -15,7 +15,6 @@ class Expression {
         while(how_many_exp > 0) {
 
 
-
             Scanner line = new Scanner(scan.nextLine());
 
 

@@ -31,22 +31,14 @@ class ED197 {
     public static MyQueue<Integer> merge (MyQueue<Integer> a, MyQueue<Integer> b) {
         MyQueue<Integer> merged_queue = new LinkedListQueue<> ();
 
-        int int_a, int_b;
-
         while ((!a.isEmpty()) || (!b.isEmpty())) {
 
-            System.out.println(merged_queue.first());
-
-            if (!a.isEmpty() && !b.isEmpty()) { // podia usar o first para ver o elemento e depois dar enqueue naquele que fosse
-                int_a = a.dequeue();            // menor
-                int_b = b.dequeue();
+            if (!a.isEmpty() && !b.isEmpty()) { // podia usar o first para ver o elemento e depois dar enqueue naquele que fosse menor
               
-                if (int_a < int_b) {
-                    merged_queue.enqueue(int_a);
-                    merged_queue.enqueue(int_b);
+                if (a.first() < b.first()) {
+                    merged_queue.enqueue(a.dequeue());
                 } else {
-                    merged_queue.enqueue(int_b);
-                    merged_queue.enqueue(int_a);
+                    merged_queue.enqueue(b.dequeue());
                 }
 
             } else if (a.isEmpty()) {
@@ -62,19 +54,31 @@ class ED197 {
 }
 
 
-public class ED196ED197 {
-    public static void main (String[] args) {
-        // MyQueue<String> q = new DoublyLinkedListQueue<>();
-        MyQueue<Integer> a = new LinkedListQueue<>();
-        MyQueue<Integer> b = new LinkedListQueue<>();
+public class ED196ED197 {    public static void main (String[] args) {
+    // MyQueue<String> q = new DoublyLinkedListQueue<>();
+    MyQueue<Integer> a = new LinkedListQueue<>();
+    MyQueue<Integer> b = new LinkedListQueue<>();
+    MyQueue<Integer> merge = new LinkedListQueue<>();
 
-        MyQueue<Integer> merged;
+    a.enqueue(10);
+    a.enqueue(20);
+    a.enqueue(30);
+    a.enqueue(40);
+    a.enqueue(50);
+    a.enqueue(60);
+    a.enqueue(70);
 
-        a.enqueue(2); a.enqueue(4); a.enqueue(8); a.enqueue(10); a.enqueue(42); a.enqueue(242); 
-        b.enqueue(1);  b.enqueue(4);  b.enqueue(9);  b.enqueue(45);
+    b.enqueue(1);
+    b.enqueue(2);
+    b.enqueue(3);
+    b.enqueue(44);
+    b.enqueue(50);
+    b.enqueue(60);
+    b.enqueue(70);
+    b.enqueue(90);
 
-        merged = ED197.merge(a, b);
+    merge = ED197.merge(a, b);
 
-        System.out.println(merged.toString());;
-    }   
+    System.out.println(merge);
+    }       
 }
