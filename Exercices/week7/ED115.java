@@ -55,6 +55,7 @@ class SupermarketSim {
         scan.nextLine();
         int[] line_att = new int[number_of_lines*2]; // each line has one att to represent the number of clients that passed through the line and the number of products
 
+        @SuppressWarnings("unchecked")
         MyQueue<Integer>[] lines_live = new MyQueue[number_of_lines];
         for(int i = 0; i < number_of_lines; i++) 
             lines_live[i] = new LinkedListQueue<Integer>();
