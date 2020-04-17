@@ -2,7 +2,7 @@
 //                         Recap                             //
 /* --------------------------------------------------------- */
 
-package week8;
+package week8.recap;
 
 // FIFO
 public interface MyQueue1<T> {

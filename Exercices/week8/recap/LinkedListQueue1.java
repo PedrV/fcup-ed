@@ -2,7 +2,7 @@
 //                         Recap                             //
 /* --------------------------------------------------------- */
 
-package week8;
+package week8.recap;
 
 public class LinkedListQueue1<T> implements MyQueue1<T> {
     private DoublyLinkedList1<T> queue;

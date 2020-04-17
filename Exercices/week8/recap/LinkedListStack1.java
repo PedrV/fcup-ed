@@ -3,7 +3,7 @@
 /* --------------------------------------------------------- */
 
 
-package week8;
+package week8.recap;
 
 public class LinkedListStack1<T> implements MyStack1<T> {
     private DoublyLinkedList1<T> stack;

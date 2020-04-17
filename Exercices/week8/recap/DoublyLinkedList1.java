@@ -2,7 +2,7 @@
 //                         Recap                             //
 /* --------------------------------------------------------- */
 
-package week8;
+package week8.recap;
 
 public class DoublyLinkedList1<T> {
     private DNode1<T> first; // dummy nodes to avoid exceptional cases, prev is always null

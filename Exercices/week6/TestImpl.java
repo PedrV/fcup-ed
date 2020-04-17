@@ -6,7 +6,7 @@ public class TestImpl {
         Pair <String,Integer> pair = new Pair<>("pedro",18);
         Pair <String,Integer> pair2 = new Pair<>("pedro",18);
         Pair <String,Integer> pair1 = new Pair<>("vieira",18);
-        SinglyLinkedList<Integer> list = new SinglyLinkedList<>();
+       // SinglyLinkedList<Integer> list = new SinglyLinkedList<>();
         SinglyLinkedList<String> list1 = new SinglyLinkedList<>();
         SinglyLinkedList<Pair> list3 = new SinglyLinkedList<>();
 

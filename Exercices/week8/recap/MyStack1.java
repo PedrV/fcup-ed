@@ -2,7 +2,7 @@
 //                         Recap                             //
 /* --------------------------------------------------------- */
 
-package week8;
+package week8.recap;
 
 // LIFO
 public interface MyStack1<T> {

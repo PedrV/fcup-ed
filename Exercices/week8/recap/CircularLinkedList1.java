@@ -2,7 +2,7 @@
 //                         Recap                             //
 /* --------------------------------------------------------- */
 
-package week8;
+package week8.recap;
 
 public class CircularLinkedList1<T> {
     private Node1<T> last;
