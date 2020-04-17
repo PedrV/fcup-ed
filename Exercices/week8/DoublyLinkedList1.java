@@ -131,6 +131,35 @@ public class DoublyLinkedList1<T> {
 
 
 
+    public T getFirst() {
+        return first.getNext().getValue();
+    }
+
+    public T getLast() {
+        return last.getPrev().getValue();
+    }
+
+    public T get(int index) {
+        DNode1<T> cur = first.getNext();
+
+        if (index == 0) {
+            return getFirst();
+        } else if (index == size-1) {
+            return getLast();
+        } else if (index > 0 && index < size-1) {
+            for(int i = 0; i != index; i++) {
+                cur = cur.getNext();
+            }
+
+        } else {
+            throw new Error ("Index out of range");
+        } 
+
+        
+        return cur.getValue();
+    }
+
+
     public String toString () {
         String s = "{";
         DNode1<T> cur = first.getNext();
