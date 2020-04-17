@@ -89,17 +89,7 @@ class ED098 {
             int tempInd = indiceCor(cor);
 
             // Com base no indice da cor atribuir o doente há sua respetiva fila
-            if (tempInd == 0) {
-                emEspera[0].fila.enqueue(d);
-            } else if (tempInd == 1 ) {
-                emEspera[1].fila.enqueue(d);
-            } else if (tempInd == 2 ) {
-                emEspera[2].fila.enqueue(d);
-            } else if (tempInd == 3 ) {
-                emEspera[3].fila.enqueue(d);
-            } else {
-                emEspera[4].fila.enqueue(d);
-            }
+            emEspera[tempInd].fila.enqueue(d);
 
             numDoentes++;
         }
@@ -112,10 +102,10 @@ class ED098 {
         System.out.println("------------");
 	
         System.out.println("Vermelho " + emEspera[0].fila.size());
-        System.out.println("Laranja " + emEspera[1].fila.size());
-        System.out.println("Amarelo " + emEspera[2].fila.size());
-        System.out.println("Verde " + emEspera[3].fila.size());
-        System.out.println("Azul " + emEspera[4].fila.size());
+        System.out.println(" Laranja " + emEspera[1].fila.size());
+        System.out.println(" Amarelo " + emEspera[2].fila.size());
+        System.out.println("   Verde " + emEspera[3].fila.size());
+        System.out.println("    Azul " + emEspera[4].fila.size());
 
         System.out.println("------------");
 
@@ -125,15 +115,18 @@ class ED098 {
 
     // Mostrar estatisticas dos doentes atendidos (necessario para flag==1 e flag==2)
     private static void mostrarAtendidos() {
+        double stt_entrada = 0;
+
         System.out.println("---------------------------");
         System.out.println("Lista dos doentes atendidos");
         System.out.println("---------------------------");
         // itera sobre todos os doentes já¡ atendidos (instrução for-each)
         for (Doente d : atendidos) { 
-            System.out.println(d.nome);
-            // a completar ...
+            System.out.println(d.nome + " " + d.chegada + " " + d.entrada + " " + d.atendimento);
+            stt_entrada += d.entrada;
 	    }
-	    System.out.println("---------------------------");
+        System.out.println("---------------------------");
+        System.out.println("Tempo médio de espera: " + String.format("%.2f", stt_entrada/numDoentes));
     }
 
     // Mostrar estatisticos das equipas (necessario para flag==2)
@@ -145,6 +138,79 @@ class ED098 {
         // a completar ...
     }
 
+    // Ver o doente com chegou à menos tempo, quando anteriormente não havia nenhum doente à espera
+    private static int updateTemp () {
+
+        int redLine = emEspera[0].fila.first().chegada;
+        int orangeLine = emEspera[1].fila.first().chegada;
+        int yellowLine = emEspera[2].fila.first().chegada;
+        int greenLine = emEspera[3].fila.first().chegada;
+        int blueLine = emEspera[4].fila.first().chegada;
+
+
+        if (redLine <= orangeLine) {
+            if (yellowLine <= greenLine) {
+                if (redLine <= yellowLine) {
+                    if (redLine <= blueLine) {
+                        return redLine;
+                    } else {
+                        return blueLine;
+                    }
+                } else {
+                    if (yellowLine <= blueLine) {
+                        return yellowLine;
+                    } else {
+                        return blueLine;
+                    }
+                }
+            } else {
+                if (redLine <= greenLine) {
+                    if (redLine <= blueLine) {
+                        return redLine;
+                    } else {
+                        return blueLine;
+                    }
+                } else {
+                    if (greenLine <= blueLine) {
+                        return greenLine;
+                    } else {
+                        return blueLine;
+                    }
+                }
+            }
+        } else {
+            if (yellowLine <= greenLine) {
+                if (orangeLine <= yellowLine) {
+                    if (orangeLine <= blueLine) {
+                        return orangeLine;
+                    } else {
+                        return blueLine;
+                    }
+                } else {
+                    if (yellowLine <= blueLine) {
+                        return yellowLine;
+                    } else {
+                        return blueLine;
+                    }
+                }
+            } else {
+                if (orangeLine <= greenLine) {
+                    if (orangeLine <= blueLine) {
+                        return orangeLine;
+                    } else {
+                        return blueLine;
+                    }
+                } else {
+                    if (greenLine <= blueLine) {
+                        return greenLine;
+                    } else {
+                        return blueLine;
+                    }
+                }
+            }
+        }
+    }
+
     // Qual a cor da proxima equipa a ficar livre?
     private static int proximaEquipaLivre() {
         // a completar ...
@@ -153,13 +219,56 @@ class ED098 {
 
     // Qual a cor mais prioritaria com doente ainda por ser atendido no tempo atual?
     private static int proximoDoente(int tempo) {
-        // a completar ...
+        
+        int r = Integer.MAX_VALUE, o = Integer.MAX_VALUE, y = Integer.MAX_VALUE;
+        int g = Integer.MAX_VALUE, b = Integer.MAX_VALUE;
+
+        if (!emEspera[0].fila.isEmpty()) 
+            r = emEspera[0].fila.first().chegada;
+        if (!emEspera[1].fila.isEmpty())
+            o = emEspera[1].fila.first().chegada;
+        if (!emEspera[2].fila.isEmpty())
+            y = emEspera[2].fila.first().chegada;
+        if (!emEspera[3].fila.isEmpty())
+            g = emEspera[3].fila.first().chegada;
+        if (!emEspera[4].fila.isEmpty())
+            b = emEspera[4].fila.first().chegada;
+        
+
+        if (r <= tempo) {
+            return 0;
+        } else if (o <= tempo) {
+            return 1;
+        } else if(y <= tempo) {
+            return 2;
+        } if (g <= tempo ) {
+            return 3;
+        } if (b <= tempo ) {
+            return 4;
+        }
+        // se não estiver no tempo de nenhum, fazer avançar o tempo
         return -1;
     }
 
     // Simular processo de atendimento pelas varias equipas medicas
         private static void simular() {
-        // a completar ...
+            int time = 0;
+            Doente d;
+
+            while (atendidos.size() < numDoentes) {
+
+                int fila_a_sair = proximoDoente(time);
+
+                if (fila_a_sair == -1) {
+                    time = updateTemp();
+                } else {
+                    d = emEspera[fila_a_sair].fila.dequeue();
+                    d.entrada = time - d.chegada;
+                    time += d.atendimento;
+                    d.atendimento = time;
+                    atendidos.addLast(d);
+                }
+            }
     }
 
     // Inicializar variaveis
@@ -187,6 +296,7 @@ class ED098 {
         numEquipas = in.nextInt();
         
         inicializar();
+
         lerDoentes(in);
 
         if (flag==0) {
@@ -197,6 +307,6 @@ class ED098 {
                 mostrarEquipas(); 
             }
             mostrarAtendidos();
-        }
+        } 
     }
 }

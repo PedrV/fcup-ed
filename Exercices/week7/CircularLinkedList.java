@@ -1,6 +1,5 @@
 package week7;
 
-import week6.Node;
 
 public class CircularLinkedList <T> {
     private Node<T> last; // em CircularLinkedLists last volta a ser um titulo, não é um node "fisico" como em doublyLinkedLists, aqui
