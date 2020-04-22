@@ -58,14 +58,16 @@ class Station {
         System.out.println("-------------------------------------------------");
     }
 
-    public void simulateEvents (DoublyLinkedList<String> evd, int flag) {
-        
-        
-    }
 
     public void startEvents (Scanner scan, int flag) {
         String events = "START";                                                                                    
         int number_of_events = 0;
+
+        //----------------------------------------//
+        if (flag == 2)
+            System.out.println("Bombeiros Destacados");
+        //----------------------------------------//
+        
 
         while (!events.equals("FIM")) {
             events = scan.nextLine();
@@ -74,7 +76,6 @@ class Station {
             while (eventDetails.hasNext()) {
                 String temp = eventDetails.next();
 
-
                 if (temp.equals("PARTIDA")) {
                     String code = eventDetails.next();                              // add to the archive of each event the code of that event
                     int howM = Integer.parseInt(eventDetails.next());               // see how many firefighters we need to dispatch
@@ -82,51 +83,62 @@ class Station {
                     number_of_events++;
 
                     FireFighter preprationPhase;
-
-                    if (flag == 2) {
-                        System.out.println("Bombeiros Destacados");
-                    }
                     boolean nondeployed = true;
 
+
+                    //----------------------------------------//
+                    if (flag == 2) 
+                        System.out.println("EVENTO " + code);
+                    //----------------------------------------//
+
+
+                    // Dispatch the number of ff necessary
                     for (int i = 0; i < howM; i++) {
                         
                         if (!firefighters.isEmpty()) {
 
                             nondeployed = false;
 
-                            if (flag == 2) {
-                                System.out.println("EVENTO " + code);
-                            }
+                            preprationPhase = firefighters.dequeue();               // Put firefighter in "preparationPhase", dequeue him of the ff in the Station queue
+                            preprationPhase.event_code = code;                      // Give the ff the code of the event that he is going to be dispatched 
+                            preprationPhase.start_time_of_event = dispatch_hour;    // Give him the hour that he left the Station
+                            preprationPhase.events_in++;                            // Add one more event to the ff career
 
-                            preprationPhase = firefighters.dequeue();
-                            preprationPhase.event_code = code;
-                            preprationPhase.start_time_of_event = dispatch_hour;
-
-                            ffDeployed.addLast(preprationPhase);
-                                                    
+                            ffDeployed.addLast(preprationPhase);                    // Transition the ff from "preparationPhase" to the deployed List
+                            
+                            
+                            //----------------------------------------//
                             if (flag == 2) {
                                 System.out.println(preprationPhase.name);
                             } 
+                            //----------------------------------------//
 
-                        } else if (!firefighters.isEmpty() && flag == 2 && nondeployed) {
-                            System.out.println("Nenhum");
-                        }
-
-
+                        } 
                     }
+
+
+                    //----------------------------------------------------//
+                    if (firefighters.isEmpty() && flag == 2 && nondeployed)
+                        System.out.println("Nenhum");
+                    //----------------------------------------------------//
                     
 
                 } else if (temp.equals("CHEGADA")) {
 
-                    String code = eventDetails.next();                              // Get the code of the event
-                    int arrive_time = Integer.parseInt(eventDetails.next());        // Get the end time of the event
+                    String code = eventDetails.next();                                  // Get the code of the event that ended
+                    int arrive_time = Integer.parseInt(eventDetails.next());            // Get the end time of the event that ended
+                    int size_copy = ffDeployed.size();
 
-                    for (int i = 0; i < ffDeployed.size(); i++) {
-                        FireFighter f = ffDeployed.get(i);
+                    // The "j" variable is needed to avoid accessing positions in the list no longer available. Ex. Starting with 4 elements in the list, once we removed 2, 
+                    // the size of the list was going to be 2, the positions availabe would be 0 and 2. If "i" was our only variable, at this point of the loop it would be 3,
+                    // and trying to access position 3 of the list, even though at the start it was accessible, now it wont be, because, once again the size is 2, resulting in a NullPointerExpection
+                    for (int i = 0, j = 0; i < size_copy; i++, j++) {                   // Search for the ffs that arrived from that event 
+                        FireFighter f = ffDeployed.get(j);
 
-                        if (f.event_code.equals(code)) {
-                            f.minutes_worked += (arrive_time - f.start_time_of_event);
-                            firefighters.enqueue(ffDeployed.remove(i));
+                        if (f.event_code.equals(code)) {                                // If the ff has the code of the event given
+                            f.minutes_worked += (arrive_time - f.start_time_of_event);  // Update the time worked
+                            firefighters.enqueue(ffDeployed.remove(j));                 // Put him in the Station queue for the next event
+                            j--;
                         }
                     }
 
@@ -137,9 +149,11 @@ class Station {
             eventDetails.close();
         }
 
+        //-----------------------------------------------------------------//
         if (flag == 1) {
             System.out.println("Ocorreram " + number_of_events + " eventos");
         }
+        //-----------------------------------------------------------------//
     }
 
 }
@@ -156,6 +170,7 @@ public class ED095 {
 
         station1.readNames(scan);
         station1.startEvents(scan, flag);
+        station1.displayFirefighters();
            
     }
         
