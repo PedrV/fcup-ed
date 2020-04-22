@@ -99,7 +99,7 @@ class ED098 {
 
     // Mostrar numero de doentes em cada cor (necessario para flag==0)
     private static void mostrarCores() {
-        int gap = 4; // remove
+        int gap = 4; // remove and add String.format instead
 
         System.out.println("------------");
         System.out.println("Cores     ND");
@@ -166,6 +166,7 @@ class ED098 {
             b = emEspera[4].fila.first().chegada;
 
 
+        // Não estou orgulhoso disto, mas funciona. Substituir por loop, mais compacto e simples
         if (r <= o) {
             if (y <= g) {
                 if (r <= y) {

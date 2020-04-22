@@ -1,13 +1,13 @@
 package week8;
 
 
-class ArrayQueue {
+/* class ArrayQueue {
     private MyQueue <String> queue;
 
     ArrayQueue () {
         queue = new LinkedListQueue<>();
     }
-}
+} */
 
 public class test {
     public static void main (String[] args) {
