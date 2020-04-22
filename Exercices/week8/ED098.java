@@ -101,11 +101,11 @@ class ED098 {
         System.out.println("Cores     ND");
         System.out.println("------------");
 	
-        System.out.println("Vermelho " + emEspera[0].fila.size());
-        System.out.println(" Laranja " + emEspera[1].fila.size());
-        System.out.println(" Amarelo " + emEspera[2].fila.size());
-        System.out.println("   Verde " + emEspera[3].fila.size());
-        System.out.println("    Azul " + emEspera[4].fila.size());
+        System.out.println("Vermelho   " + emEspera[0].fila.size());
+        System.out.println(" Laranja   " + emEspera[1].fila.size());
+        System.out.println(" Amarelo   " + emEspera[2].fila.size());
+        System.out.println("   Verde   " + emEspera[3].fila.size());
+        System.out.println("    Azul   " + emEspera[4].fila.size());
 
         System.out.println("------------");
 
@@ -126,7 +126,7 @@ class ED098 {
             stt_entrada += d.entrada;
 	    }
         System.out.println("---------------------------");
-        System.out.println("Tempo médio de espera: " + String.format("%.2f", stt_entrada/numDoentes));
+        System.out.println("Tempo medio de espera: " + String.format("%.1f", stt_entrada/numDoentes));
     }
 
     // Mostrar estatisticos das equipas (necessario para flag==2)
