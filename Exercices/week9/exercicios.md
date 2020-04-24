@@ -59,6 +59,15 @@ f) f(n) = sqrt(n); g(n) = log n
 - Alinea f) 3 falso. Não conseguimos encontrar constantes "c1", "c2" e "x", tal que c1 * g(n) <= f(n) <= c2 * g(n). O crescimento da função "f" não pode ser "controlado" pelo crescimento assintotico da função "g". 
 
 
+## Exercicio 2 - Complexidade de TAD Conjunto
+
+1. a) Theta(n); b) Theta(n); c) Theta(n); d) Theta(1); e) Theta(1)
+2. a) Theta(1); b) Theta(1); c) Theta(1); d) Theta(1); e) Theta(n) - n tamanho do array
+
+2. O tradeoff que nos sujeitamos é o de melhor tempo de execução por bastante mais memoria usada. Agora temos um array tão grande quanto o maior numero que temos guardado.
+
+
+
 ## Exercicio 3 - Previsão do tempo de execuçao
 
 1. Programa P:
@@ -74,3 +83,13 @@ Quase mais tem de ser uma potencia maior, n^3, dado um input arbitrario "n" e de
 Complexidade Cubica n^3.
 
 b) t3 = f(n3) / f(n2) * t2 <=> t3 = (5000)^3 / (1200)^3 * 96 <=> t3 = 6944s ou 1h55m12s
+
+
+
+
+
+#### Notas pessoais
+- Analise de algoritmo, considerar ou pior caso ou caso medio (normalmente pior caso), e ver o crescimento da função.
+- O(f(n)) apenas garante que nuca será maior que f(n) o crescimento.
+- Theta(f(n)) garante que nunca será nem mais nem menos que f(n).
+- Muitas vezes o O(f(n)) e Theta(f(n)) são usados um em vez do outro, o que não está errado, dizer que função que é Theta(n) é O(n) não é errado, Theta(n) apenas é mais correto, dá mais informação.
