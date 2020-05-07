@@ -20,7 +20,7 @@ public class testFloodFill {
         if (m[y][x] == '.')   // Caso base: celula vazia
             return 0; 
 
-        int count = 2;        // celula nao vazia
+        int count = 1;        // celula nao vazia
         visited[y][x] = true; // marcar como visitada
     
         // Adicionando celulas nao vizinhas

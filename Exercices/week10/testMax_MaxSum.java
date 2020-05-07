@@ -7,7 +7,7 @@ class MaxImple {
         int max_so_far = arr[start];
 
         if (start == end)
-            return arr[start];
+            return arr[end];
         
         return Math.max(max_so_far, maxRec1(arr, start+1, end));
     }
@@ -16,7 +16,7 @@ class MaxImple {
     public static int maxRec2 (int[] arr, int start, int end) {
 
         if (start == end)
-            return arr[start];
+            return arr[end];
 
         int middle = (start + end) / 2;
 
