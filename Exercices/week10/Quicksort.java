@@ -4,43 +4,43 @@ import java.util.Random;
 
 public class Quicksort {
 
-    static int partition (int[] array, int low, int high) {
+    static int partition (int[] v, int start, int end) {
         Random random = new Random();
-        int pivot_index = random.nextInt(high-low) + low;
 
-        int temp = array[pivot_index];
-        array[pivot_index] = array[high];
-        array[high] = temp;
+        int rand = random.nextInt(end-start) + start; 
+        
+        int temp = v[rand];
+        v[rand] = v[end];
+        v[end] = temp;
 
-        int pivot = array[high];
-        int i = low - 1;
+        int pivot = v[end];
+        int i = start - 1;
 
-        for(int j = low; j < high; j++) {
-            if (pivot > array[j]) {
+        for(int j = start; j < end; j++) {
+            if (pivot > v[j]) {
                 i++;
 
-                int temp1 = array[j];
-                array[j] = array[i];
-                array[i] = temp1;
+                int temp1 = v[j];
+                v[j] = v[i];
+                v[i] = temp1;
             }
         }
 
-        int temp1 = array[i+1];
-        array[i+1] = array[high];
-        array[high] = temp1;
+        int temp1 = v[i+1];
+        v[i+1] = v[end];
+        v[end] = temp1;
 
         return (i+1);
     }
 
-    static void quicksort (int[] array, int low, int high) {
-        if (low < high) {
-            int m = partition(array, low, high);
-            quicksort(array, low, m-1);
-            quicksort(array, m+1, high);
-        }   
+    static void quicksort (int[] v, int start, int end) {
+        if (start >= end)
+            return;
+
+        int m = partition(v, start, end);
+        quicksort(v, start, m-1);
+        quicksort(v, m+1, end);
     }
-
-
 
 
     public static void main(String[] args) {
