@@ -51,7 +51,7 @@ class PermutationsQueens {
 
     public void startPerm (int[] v, int[] perm, boolean[] used, int cur) {
 
-        if (cur == v.length) {
+        if (col == v.length) {
 
             for(int i = 0; i < v.length; i++) 
                 System.out.print(v[perm[i]]);
@@ -59,18 +59,19 @@ class PermutationsQueens {
             System.out.println();
 
         } else {
-
+            //TODO: Perform tests on this algorithm
             for(int i = 0; i < v.length; i++) {
                 if(!used[i]) {
+
+                    if (!available[cur][col])
+                        startPerm(v, perm, used, cur+1);
+
+                    updateBoard(cur);
+
                     used[i] = true;
-                    perm[cur] = i;
+                    perm[i] = cur;
 
-                    if (!available[i][col])
-                        return;
-
-                    updateBoard(i);
-
-                    startPerm(v, perm, used, cur+1);
+                    startPerm(v, perm, used, 0);
                     used[i] = false;
                 }
             }
