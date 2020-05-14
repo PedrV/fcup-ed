@@ -1,6 +1,9 @@
 package week11;
 
 import java.util.Scanner;
+
+import javafx.util.Pair;
+
 import java.util.Arrays;
 
 public class TestImple {
@@ -57,14 +60,20 @@ public class TestImple {
         int depth = t.depth();
         int[] maxNodes = new int[depth+1];
         BTree<Integer> t1 = t;
+
         
-    
+
         for (int i = 0; i < maxNodes.length; i++) {
-            maxNodes[i] = maxNodeLevel (t1.getRoot(), depth);
+
+            //TODO: Perguntar sobre warnings de Pair
+            Pair<Integer, Integer> p = maxNodeLevel (t1.getRoot(), depth, depth-1, t);
+            
+            // This pair as the biggest sum of the subtree and the child that originated it
+            // FIXME: Find and replace parent of child originating max sum
+            int parent = findParent(t.getRoot(), maxNodes[i], depth-1);
+           
             depth--;
-
-            int parent = findParent(t.getRoot(), maxNodes[i]);
-
+            
             replaceParent(t1.getRoot(), parent, parent+maxNodes[i]);
         } 
 
@@ -83,60 +92,75 @@ public class TestImple {
         }
 
         if (n.getLeft() != null) {
-            if (n.getLeft().getValue() == x) 
+            if (n.getLeft().getValue() == x) {
                 n.getLeft().setValue(new_parent);
+                return;
+            }
         }
         
         if (n.getRight() != null) {
-            if (n.getRight().getValue() == x) 
+            if (n.getRight().getValue() == x) {
                 n.getRight().setValue(new_parent);
+                return;
+            }
         } 
 
         replaceParent(n.getLeft(), x, new_parent);
         replaceParent(n.getRight(), x, new_parent);
     }
 
-    private static int findParent (BTNode<Integer> n, int x) {
+    private static int findParent (BTNode<Integer> n, int x, int depth) {
 
         if (n == null)
             return 0;
         
         if (n.getLeft() != null && n.getRight() != null) {
 
-            if (n.getLeft().getValue() == x || n.getRight().getValue() == x) 
+            if ( (n.getLeft().getValue() == x && depth == 0) || (n.getRight().getValue() == x && depth == 0) )
                 return n.getValue();
 
         } else if (n.getLeft() != null) {
 
-            if (n.getLeft().getValue() == x) 
+            if (n.getLeft().getValue() == x && depth == 0) 
                 return n.getValue();
 
         } else if (n.getRight() != null) {
 
-            if (n.getRight().getValue() == x) 
+            if (n.getRight().getValue() == x && depth == 0) 
                 return n.getValue();
 
         } else {
             return 0;
         }
     
-        return findParent(n.getLeft(), x) + findParent(n.getRight(), x);
+        return findParent(n.getLeft(), x, depth-1) + findParent(n.getRight(), x, depth-1);
     }
 
-    private static int maxNodeLevel (BTNode<Integer> n, int depth) {
+    private static Pair maxNodeLevel (BTNode<Integer> n, int depth, int pdepth, BTree<Integer> t) {
+        Pair p, l, r;
 
         if (n == null)
-            return Integer.MIN_VALUE;
+            return p = new Pair <Integer, Integer> (Integer.MIN_VALUE, Integer.MIN_VALUE);
 
         if (depth == 0) 
-            return n.getValue();
+            return p = new Pair<Integer,Integer>(n.getValue(), n.getValue() + findParent(t.getRoot(), n.getValue(), pdepth));
         
-        return Math.max(maxNodeLevel(n.getLeft(), depth-1), maxNodeLevel(n.getRight(), depth-1));
+       
+        l = maxNodeLevel(n.getLeft(), depth - 1, pdepth, t);
+        r = maxNodeLevel(n.getRight(), depth - 1, pdepth, t);
+
+        int v1 = (int) l.getValue();
+        int v2 = (int) r.getValue();
+
+        if (v1 > v2)
+            return l;
+        else
+            return r;
     }
 
     public static void main(String[] args) {
         // Ler arvore de inteiros em preorder
-        String treeString1 = "12 9 5 3 N N 7 N N 10 N N 16 N N"; 
+        String treeString1 = "12 9 5 3 N N 7 N N 8 N 5 N N 16 N 9 N N"; 
         /*        String treeString2 = "6 3 2 N N 5 N N 10 N N"; 
         String treeString3 = "6 3 N N 10 N N"; 
         String treeString4 = "6 3 2 N N N 10 8 N N 25 N N"; 
