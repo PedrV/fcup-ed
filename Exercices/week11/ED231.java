@@ -85,6 +85,7 @@ class DataManage {
         // Se é garantido que o numero de casos aumenta sempre, então o dia com mais casos é o ultimo
         int max_height = (data[data.length-1] / 100);   // Altura maxima
         
+        // Nevermind
         /* // Descobrir qual vai ser a altura do gráfico em cada dia 
         // Este array é desnecessário visto que calculo pode ser feito na hora, mas assim fica mais sucinto
         int[] number_cardinal = new int[data.length];
@@ -112,25 +113,25 @@ class DataManage {
 
 public class ED231 {
     public static void main (String[] args) {
-    Scanner scan = new Scanner(System.in);
+        Scanner scan = new Scanner(System.in);
 
-    int number_of_days = scan.nextInt();  // Saber o numero de dias que foram registados dados
-    int[] data = new int[number_of_days]; // Temos informação do numero de dados, array é suficiente    
+        int number_of_days = scan.nextInt();  // Saber o numero de dias que foram registados dados
+        int[] data = new int[number_of_days]; // Temos informação do numero de dados, array é suficiente    
 
-    for(int i = 0; i < number_of_days; i++)
-        data[i] = Integer.parseInt(scan.next());
+        for(int i = 0; i < number_of_days; i++)
+            data[i] = Integer.parseInt(scan.next());
 
-    int flag = scan.nextInt();
+        int flag = scan.nextInt();
 
-    scan.close();
+        scan.close();
 
-    DataManage data1 = new DataManage(data);
-    if (flag == 1) {
-        data1.maxMin();
-    } else if (flag == 2) {
-        data1.lowProp();
-    } else {
-        data1.drawGraph();
-    }
+        DataManage data1 = new DataManage(data);
+        if (flag == 1) {
+            data1.maxMin();
+        } else if (flag == 2) {
+            data1.lowProp();
+        } else {
+            data1.drawGraph();
+        }
    }
 }
