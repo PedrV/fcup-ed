@@ -53,15 +53,90 @@ public class TestImple {
 
 
     // ED213
-    public static String maxSum(BTree<Integer> t) {
+    public static int[] maxSum(BTree<Integer> t) {
+        int depth = t.depth();
+        int[] maxNodes = new int[depth+1];
+        BTree<Integer> t1 = t;
         
+    
+        for (int i = 0; i < maxNodes.length; i++) {
+            maxNodes[i] = maxNodeLevel (t1.getRoot(), depth);
+            depth--;
+
+            int parent = findParent(t.getRoot(), maxNodes[i]);
+
+            replaceParent(t1.getRoot(), parent, parent+maxNodes[i]);
+        } 
+
+        return maxNodes;
+    }
+
+    private static void replaceParent (BTNode<Integer> n, int x, int new_parent) {
+
+        if (n == null)
+            return;
+        
+        // This cases is only for the root substitution
+        if (n.getValue() == x) {
+            n.setValue(new_parent);
+            return;
+        }
+
+        if (n.getLeft() != null) {
+            if (n.getLeft().getValue() == x) 
+                n.getLeft().setValue(new_parent);
+        }
+        
+        if (n.getRight() != null) {
+            if (n.getRight().getValue() == x) 
+                n.getRight().setValue(new_parent);
+        } 
+
+        replaceParent(n.getLeft(), x, new_parent);
+        replaceParent(n.getRight(), x, new_parent);
+    }
+
+    private static int findParent (BTNode<Integer> n, int x) {
+
+        if (n == null)
+            return 0;
+        
+        if (n.getLeft() != null && n.getRight() != null) {
+
+            if (n.getLeft().getValue() == x || n.getRight().getValue() == x) 
+                return n.getValue();
+
+        } else if (n.getLeft() != null) {
+
+            if (n.getLeft().getValue() == x) 
+                return n.getValue();
+
+        } else if (n.getRight() != null) {
+
+            if (n.getRight().getValue() == x) 
+                return n.getValue();
+
+        } else {
+            return 0;
+        }
+    
+        return findParent(n.getLeft(), x) + findParent(n.getRight(), x);
+    }
+
+    private static int maxNodeLevel (BTNode<Integer> n, int depth) {
+
+        if (n == null)
+            return Integer.MIN_VALUE;
+
+        if (depth == 0) 
+            return n.getValue();
+        
+        return Math.max(maxNodeLevel(n.getLeft(), depth-1), maxNodeLevel(n.getRight(), depth-1));
     }
 
     public static void main(String[] args) {
         // Ler arvore de inteiros em preorder
-        String treeString1 = "6 3 2 N 1 N N 5 N 7 N N 10 8 N 9 N N 25 N N"; 
-        String treeString2 = "1 2 3 4 5 6 N N N N N N N"; 
-        String treeString3 = "14 4 3 N N 9 7 5 N N N N 18 16 15 N N 17 N N 20 N N"; 
+        String treeString1 = "12 9 5 3 N N 7 N N 10 N N 16 N N"; 
         /*        String treeString2 = "6 3 2 N N 5 N N 10 N N"; 
         String treeString3 = "6 3 N N 10 N N"; 
         String treeString4 = "6 3 2 N N N 10 8 N N 25 N N"; 
@@ -72,15 +147,11 @@ public class TestImple {
         String treeString8 = "5 1 8 N N 6 N N 7 2 N N N"; 
  */
         Scanner in1 = new Scanner(treeString1);
-        Scanner in2 = new Scanner(treeString2);
-        Scanner in3 = new Scanner(treeString3);
+
         BTree<Integer> t1 = LibBTree.readIntTree(in1);
-        BTree<Integer> t2 = LibBTree.readIntTree(in2);
-        BTree<Integer> t3 = LibBTree.readIntTree(in3);
         
-        System.out.println(Arrays.toString(sumLevels(t1)));
-        System.out.println(Arrays.toString(sumLevels(t2)));
-        System.out.println(Arrays.toString(sumLevels(t3)));
+        System.out.println(Arrays.toString(maxSum(t1)));
+
         
         /*System.out.println(t2.strict());
         System.out.println(t3.strict());
