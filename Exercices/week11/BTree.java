@@ -16,7 +16,7 @@ public class BTree<T> {
     }
 
     // Setters and Getters for root
-    public void setRoot (BTNode<T> root ) {
+    public void setRoot (BTNode<T> root) {
         this.root = root; 
     }
 
@@ -75,6 +75,7 @@ public class BTree<T> {
     // Print Tree in PreOrder
     // ------------------------------------------------------------------------ \\
     public void printPreOrder () {
+        System.out.print("PreOrder:"); // Mooshak requests
         printPreOrder(root);
         System.out.println();
     }
@@ -83,7 +84,7 @@ public class BTree<T> {
         if (n == null) 
             return;
 
-        System.out.print(n.getValue() + " ");
+        System.out.print(" " + n.getValue());
         printPreOrder(n.getLeft());
         printPreOrder(n.getRight());
     }
@@ -93,6 +94,7 @@ public class BTree<T> {
     // Print Tree InOrder
     // ------------------------------------------------------------------------ \\
     public void printInOrder () {
+        System.out.print("InOrder:"); // Mooshak requests
         printInOrder(root);
         System.out.println();
     }
@@ -102,7 +104,7 @@ public class BTree<T> {
             return;
         
         printInOrder(n.getLeft());
-        System.out.print(n.getValue()  + " ");
+        System.out.print(" " + n.getValue());
         printInOrder(n.getRight());
     }   
     // ------------------------------------------------------------------------ \\
@@ -111,6 +113,7 @@ public class BTree<T> {
     // Print Tree PostOrder
     // ------------------------------------------------------------------------ \\
     public void printPostOrder () {
+        System.out.print("PostOrder:"); // Mooshak requests
         printPostOrder(root);
         System.out.println();
     }
@@ -121,7 +124,7 @@ public class BTree<T> {
         
         printPostOrder(n.getLeft());
         printPostOrder(n.getRight());
-        System.out.print(n.getValue() + " ");
+        System.out.print(" " + n.getValue());
     }
     // ------------------------------------------------------------------------ \\
 
@@ -129,6 +132,7 @@ public class BTree<T> {
     // Print Tree in BFS
     // ------------------------------------------------------------------------ \\
     public void printBFS () {
+        System.out.print("BFS:"); // Mooshak requests
         printBFS(root);
         System.out.println();
     }
@@ -142,7 +146,7 @@ public class BTree<T> {
             BTNode<T> cur = q.dequeue();
 
             if (cur != null) {
-                System.out.print(cur.getValue() + " ");
+                System.out.print(" " + cur.getValue());
                 q.enqueue(cur.getLeft());
                 q.enqueue(cur.getRight());
             }
@@ -154,6 +158,7 @@ public class BTree<T> {
     // Print Tree DFS
     // ------------------------------------------------------------------------ \\
     public void printDFS () {
+        System.out.print("DFS:"); // Mooshak requests
         printDFS (root);
         System.out.println();
     }
@@ -167,11 +172,90 @@ public class BTree<T> {
             BTNode<T> cur = s.pop();
 
             if (cur != null) {
-                System.out.print(cur.getValue() +  " ");
+                System.out.print(" " + cur.getValue());
                 s.push(cur.getLeft());
                 s.push(cur.getRight());
             }
         }
+    }
+    // ------------------------------------------------------------------------ \\
+
+
+    // ED204 - Number of leafs
+    // ------------------------------------------------------------------------ \\
+    public int numberLeafs() {
+        return numberLeafs(root);
+    }
+
+    private int numberLeafs(BTNode<T> n) {
+        if (n == null)
+            return 0;
+
+        if (n.getLeft() == null && n.getRight() == null)
+            return 1;
+
+        return numberLeafs(n.getLeft()) + numberLeafs(n.getRight());
+    }
+    // ------------------------------------------------------------------------ \\
+
+
+    // ED205 - Return if a tree is strictly binary
+    // ------------------------------------------------------------------------ \\
+    public boolean strict() {
+        return strict(root);
+    }
+
+    private boolean strict(BTNode<T> n) {
+        if (n == null) 
+            return true;
+        
+        if (n.getLeft() == null && n.getRight() != null)
+            return false;
+        else if (n.getLeft() != null && n.getRight() == null)
+            return false;
+
+        return strict(n.getLeft()) && strict(n.getRight());
+    } 
+    // ------------------------------------------------------------------------ \\
+
+
+    // ED206 - Return the value at the end of path
+    // ------------------------------------------------------------------------ \\
+    public T path(String s) {
+        return path(root, s, 0);
+    }
+
+    private T path(BTNode<T> n, String s, int i) {
+
+        if (i == s.length()) 
+            return n.getValue();     
+        
+        if (s.charAt(i) == 'E')
+            return path(n.getLeft(), s, i+1);
+        else if (s.charAt(i) == 'D')
+            return path(n.getRight(), s, i+1);
+        else 
+            return n.getValue();
+    }
+    // ------------------------------------------------------------------------ \\
+
+
+    // ED207 - Number of nodes at a given depth
+    // ------------------------------------------------------------------------ \\
+    public int nodesLevel(int k)  {
+        return nodesLevel(root, k);
+    }
+
+    private int nodesLevel(BTNode<T> n, int k) {
+
+        if (n == null)
+            return 0;
+
+        if (k == 0)
+            return 1;
+        
+        return nodesLevel(n.getLeft(), k-1) + nodesLevel(n.getRight(), k-1);
+        
     }
     // ------------------------------------------------------------------------ \\
 
