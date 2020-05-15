@@ -55,7 +55,7 @@ public class TestImple {
     }
 
 
-    // ED213
+    // ED213 (para analise detalhada, incluindo complexidade ver ficheiro maxSum.java)
     public static String maxSum (BTree<Integer> t) {
         String path = "";
         int[] max_path = maxPath(t);
