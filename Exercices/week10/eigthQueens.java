@@ -1,8 +1,5 @@
 package week10;
 
-// TODO:
-// Perguntar se existe alguma maneira de verificar se existem queens que podem ser atacadas sem ter de se representar a matrix e percorrer tudo
-
 class PermutationsQueens {
     private boolean[][] available;
     private int col;
@@ -59,9 +56,17 @@ class PermutationsQueens {
             System.out.println();
 
         } else {
-            //TODO: Perform tests on this algorithm
             for(int i = 0; i < v.length; i++) {
                 if(!used[i]) {
+
+                    if (cur == 8) {
+                        cur = 0;
+                        for(int k = 0; k < 8; k++)
+                            for(int j = 0; j < 8; j++ )
+                                available[k][j] = true;
+                        col = 0;
+                        break;
+                    }
 
                     if (!available[cur][col])
                         startPerm(v, perm, used, cur+1);
