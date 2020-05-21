@@ -20,7 +20,27 @@ value replaced with the max sum of his subtree.
 */
 
 import java.util.Scanner;
-import javafx.util.Pair;
+
+
+class Pair <K, V> {
+    private K key;
+    private V value;
+
+    Pair (K key, V value) {
+        this.key = key;
+        this.value = value;
+    }
+
+    public K getKey () {
+        return key;
+    }
+
+    public V getValue () {
+        return value;
+    }
+
+}
+
 
 public class maxSum {
 
@@ -186,10 +206,18 @@ public class maxSum {
     public static void main (String[] args) {
         // Ler arvore de inteiros em preorder
         String treeString1 = "12 9 5 3 N N 7 N N 10 N N 16 N N"; 
-
+        String treeString2 = "6 5 4 3 2 1 N N N N N N N"; 
+        String treeString3 = "3 1 N 2 N N 5 N 8 6 N 7 N N 10 N N"; 
+        
         Scanner in1 = new Scanner(treeString1);
+        Scanner in2 = new Scanner(treeString2);
+        Scanner in3 = new Scanner(treeString3);
         BTree<Integer> t1 = LibBTree.readIntTree(in1);
+        BTree<Integer> t2 = LibBTree.readIntTree(in2);
+        BTree<Integer> t3 = LibBTree.readIntTree(in3);
         
         System.out.println(maxiSum(t1));
+        System.out.println(maxiSum(t2));
+        System.out.println(maxiSum(t3));
     }
 }

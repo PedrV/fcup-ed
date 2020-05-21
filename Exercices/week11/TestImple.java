@@ -2,9 +2,27 @@ package week11;
 
 import java.util.Scanner;
 
-import javafx.util.Pair;
-
 import java.util.Arrays;
+
+
+class MyPair <K, V> {
+    private K key;
+    private V value;
+
+    MyPair (K key, V value) {
+        this.key = key;
+        this.value = value;
+    }
+
+    public K getKey () {
+        return key;
+    }
+
+    public V getValue () {
+        return value;
+    }
+
+}
 
 public class TestImple {
     // ED211
@@ -87,7 +105,7 @@ public class TestImple {
         
         for (int i = 0; i < path.length; i ++ ) {
 
-            Pair<Integer, Integer> p = maxNodeLevel (t1.getRoot(), depth, depth-1, t);
+            MyPair<Integer, Integer> p = maxNodeLevel (t1.getRoot(), depth, depth-1, t);
 
             int parent = findParent(t.getRoot(), p.getKey(), depth-1);
 
@@ -157,14 +175,14 @@ public class TestImple {
         return findParent(n.getLeft(), x, depth-1) + findParent(n.getRight(), x, depth-1);
     }
 
-    private static Pair<Integer,Integer> maxNodeLevel (BTNode<Integer> n, int depth, int pdepth, BTree<Integer> t) {
-        Pair<Integer,Integer> p, l, r;
+    private static MyPair<Integer,Integer> maxNodeLevel (BTNode<Integer> n, int depth, int pdepth, BTree<Integer> t) {
+        MyPair<Integer,Integer> p, l, r;
 
         if (n == null)
-            return p = new Pair <Integer, Integer> (Integer.MIN_VALUE, Integer.MIN_VALUE);
+            return p = new MyPair<Integer, Integer> (Integer.MIN_VALUE, Integer.MIN_VALUE);
 
         if (depth == 0) 
-            return p = new Pair<Integer,Integer>(n.getValue(), n.getValue() + findParent(t.getRoot(), n.getValue(), pdepth));
+            return p = new MyPair<Integer,Integer>(n.getValue(), n.getValue() + findParent(t.getRoot(), n.getValue(), pdepth));
         
        
         l = maxNodeLevel(n.getLeft(), depth - 1, pdepth, t);
@@ -193,9 +211,7 @@ public class TestImple {
  */
         Scanner in1 = new Scanner(treeString1);
 
-        BTree<Integer> t1 = LibBTree.readIntTree(in1);
-        
-        System.out.println(maxSum(t1));
+        BTree<Integer> t = LibBTree.readIntTree(in1);
         
         /*System.out.println(t2.strict());
         System.out.println(t3.strict());
@@ -205,7 +221,7 @@ public class TestImple {
         System.out.println(t7.strict());
         System.out.println(t8.strict()); */
        
-/*        // Escrever resultado de chamada a alguns metodos
+      // Escrever resultado de chamada a alguns metodos
         System.out.println("numberNodes = " + t.numberNodes());
         System.out.println("depth = " + t.depth());
         System.out.println("contains(2) = " + t.contains(2));
@@ -216,6 +232,6 @@ public class TestImple {
         t.printInOrder();
         t.printPostOrder();
         t.printBFS();
-        t.printDFS(); */
+        t.printDFS();
     }
 }
