@@ -18,20 +18,16 @@ package week12;
     basta acrescentar a posiçao em que ocorre "i" ao array de ocorrencias.
     No final basta "cortar" o array pelo tamanho desejado, que é o "index" e está pronto para ser retornado. (A estrutura mais adequada talvez fosse um ArrayList neste caso, mas array é ok)
 
-    -- remove: Este metodo divide-se em duas partes, a parte superficial, aquele que recebe a l1, remove(SinglyLinkedList<T> toRemove), 
-    e o metodo que remove um elemento num dado index, remove (int index). Começando pelo metodo que remove um elemento num dado index, este metodo
-    simplesmente procura pelo elemento com index desejado e remove-o (mais detalhe junto do codigo). 
-    Quanto ao metodo que recebe l1, este tem que por cada elemento da lista, l, que vai ver os seus elementos possivelmente removidos, este compara-o com todos os elementos da lista, l1, que contem os 
+    -- remove: Este metodo, que recebe l1, tem que por cada elemento da lista, l, que vai ver os seus elementos possivelmente removidos, este compara-o com todos os elementos da lista, l1, que contem os 
     elementos que devem ser removidos. Ou seja por cada elemento, x de l, a lista l1 é iterada há procura de correspondencia entre x e um dos seus elementos.
-    Cada vez que x recebe correspondecia, o remove (index) é chamado e x é removido. 
+    Cada vez que x recebe correspondecia, este é removido (mais detalhes junto do codigo). 
     (Nota: Quando um elemento é removido, o size diminui e o index de l tem de ser ajustado, ou seja temos de diminuir o index em 1 visto que um elemento foi removido).
 
     Complexidade:
     -- reverse: Simples loop por todos os elementos da lista, linear conforme os elementos da lista. O(n).
     -- occurences: Loop por todos os elementos da lista, mais o possivel reajuste do array. Em geral linear sobre os elementos da lista. O(n).
-    -- remove: O metodo remove (index) tem complexidade linear sobre os elementos da lista, O(n). O metodo remove(SinglyLinkedList<T> toRemove), embora passe apenas uma vez por cada elemento de l, em cada um deles tem de ver se este coincide com um elemento de l1.
-    Admitindo que l tem "n" elementos e l1 tem "r" elementos, então a complexiade seria r*n, que corresponderia a O(n). No entanto, sempre que existe correspondecia entre l e l1, remove (index) é chamado.
-    Admitindo "k" correspondencias, 0 <= k <= n, entre l e l1, então no total o polinomio de complexidade seria: r*n + k*n. O(n^2).
+    -- remove: O metodo remove(SinglyLinkedList<T> toRemove), embora passe apenas uma vez por cada elemento de l, em cada um deles tem de ver se este coincide com um elemento de l1.
+    Admitindo que l tem "n" elementos e l1 tem "r" elementos, então a complexiade seria r*n, que corresponderia a O(n).
    ----------- ----------- ----------- ----------- ----------- ----------- ----------- ----------- ----------- ----------- ----------- ----------- */
 
 
@@ -174,44 +170,42 @@ public class SinglyLinkedList<T> {
 
 
     ////////////////////////////////////////////////////////////////////////
-    // Remover um elemento da lista com base no seu index
-    private void remove (int index) {
-        if (index == 0) {
-            removeFirst();
-        } else if (index == size-1) {
-            removeLast();
-        } else {
-            Node <T> cur = first;   // Apontador para ao primeiro elemento da lista
-
-            for (int i = 0; i < size-1; i++) {
-
-                // Parar no elemento antes daquele que vai ser removido para preparar a remoçao
-                if (i == index-1) {
-                    cur.setNext(cur.getNext().getNext());   // Proximo elemento do elemento antes daquele que vai ser removido vai ser o proximo daquele que vai ser removido
-                    size--;                                 // assim saltamos o elemento que vai ser removido e nao tendo nada a apontar para ele o garbage collector do java apaga-o; Ajustar size
-                    break;
-                }
-
-                cur = cur.getNext();
-            }
-        }
-    }
-
     // Remover todos os elementos da lista que aparecem na lista de elementos para remover
     public void remove(SinglyLinkedList<T> toRemove) {
         Node<T> cur = first;                    // Apontador para ao primeiro elemento da lista
         Node<T> curRemove = toRemove.first;     // Apontador para ao primeiro elemento da lista de elementos a remover
+        Node<T> previous = cur;                 // Apontador para o node anterior ao atual para facilitar a remoçao de elementos
+        boolean removed = false;                // Flag para saber se foram removidos elementos, para saber quando atualizar ou nao o previous
 
         for (int i = 0; i < size; i++) {    // Loop por todos os elementos da lista original
             for (int j = 0; j < toRemove.size; j++) {   // Em cada elemento da lista ver se este está na lista de elementos a remover
-                if (cur.getValue().equals(curRemove.getValue())) {  // Se estiver, remove-lo
-                    remove(i);
-                    i--;        // Ao remover um elemento da lista o seu tamanho diminui, logo temos de ajustar o index do loop
+
+                if (cur.getValue().equals(curRemove.getValue())) {  // Se proximo elemento for o desejado, prepar para remove lo
+                    
+                    if(i == 0) {
+                        removeFirst();
+                        removed = true;
+                    } else {
+                        previous.setNext(previous.getNext().getNext()); // Proximo elemento do elemento antes daquele que vai ser removido vai ser o proximo daquele que vai ser removido
+                        size--;                                         // assim saltamos o elemento que vai ser removido e nao tendo nada a apontar para ele o garbage collector do java apaga-o; Ajustar size
+                        removed = true;
+                    }
+                    
+                    i--;            // Ao remover um elemento da lista o seu tamanho diminui, logo temos de ajustar o index do loop
+                    break;        
                 }
                 curRemove = curRemove.getNext();  
             }  
+
             curRemove = toRemove.first; // Colocar denovo o apontador da lista de elementos a remover no 1º elemento
+
+            // Se não removemos nenhum elemento entao temos de atualizar o no anterior porque vamos atualizar a posiçao do nó atual, cur.
+            // Caso elemento tenha sido removido então nao precisamos de atualizar o previous porque o atual muda mas a posiçao na lista nao
+            if (!removed)
+                previous = cur;
+    
             cur = cur.getNext();
+            removed = false;
         }
     }
     ////////////////////////////////////////////////////////////////////////
