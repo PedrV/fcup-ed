@@ -133,7 +133,7 @@ public class BSTree<T extends Comparable <? super T>> {
 
 
     public void printPreOrder () {
-        System.out.print("PreOrder: ");
+        System.out.print("PreOrder:");
         printPreOrder(root);
         System.out.println();
     }
@@ -150,7 +150,7 @@ public class BSTree<T extends Comparable <? super T>> {
     //-------------------------------------------------------------------
 
     public void printInOrder () {
-        System.out.print("InOrder: ");
+        System.out.print("InOrder:");
         printInOrder(root);
         System.out.println();
     }
@@ -167,7 +167,7 @@ public class BSTree<T extends Comparable <? super T>> {
     //-------------------------------------------------------------------
 
     public void printPostOrder () {
-        System.out.print("PostOrder: ");
+        System.out.print("PostOrder:");
         printPostOrder (root);
         System.out.println();
     }
@@ -184,31 +184,31 @@ public class BSTree<T extends Comparable <? super T>> {
     //-------------------------------------------------------------------
 
     public void printBFS () {
-        System.out.print("BFS: ");
+        System.out.print("BFS:");
         MyQueue<BSTNode<T>> q = new LinkedListQueue<>();
 
         q.enqueue(root);
+
 
         while (!q.isEmpty()) {
             BSTNode<T> cur = q.dequeue();
 
             if (cur != null) {
                 System.out.print(" " + cur.getValue());
-            }
-            
-            if (cur.getLeft() != null)
+                
                 q.enqueue(cur.getLeft());
-            if (cur.getRight() != null)
                 q.enqueue(cur.getRight());
-            
+            }
         }
+        
+        
         System.out.println();
     }
 
     //-------------------------------------------------------------------
 
     public void printDFS () {
-        System.out.print("DFS: ");
+        System.out.print("DFS:");
         MyStack<BSTNode<T>> s = new LinkedListStack<>();
 
         s.push(root);

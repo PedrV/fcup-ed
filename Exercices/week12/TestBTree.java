@@ -27,23 +27,24 @@ class TestBSTree {
         System.out.println("contains(3) = " + t.contains(3));
  */
         // Escrever nos da arvore seguindo varias ordens possiveis
-/*         t.printPreOrder();
+        t.printPreOrder();
         t.printInOrder();
-        t.printPostOrder(); */
+        t.printPostOrder();
 
-/*      System.out.println();
+        System.out.println();
+        t.remove(54);
         
         // Experimentando remocao
         t.remove(14);
         t.printPreOrder();
         t.printInOrder();
-        t.printPostOrder(); */
+        t.printPostOrder();
 
-        System.out.println(t.countBetween(7, 10));
+/*         System.out.println(t.countBetween(7, 10));
         System.out.println(t.countBetween(0, 90));
         System.out.println(t.countBetween(60, 80));
         System.out.println(t.countBetween(8, 54));
         System.out.println(t.countBetween(2, 22));
-        System.out.println(t.countBetween(2, 2));
+        System.out.println(t.countBetween(2, 2)); */
     }
  }

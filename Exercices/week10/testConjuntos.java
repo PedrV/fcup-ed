@@ -16,8 +16,23 @@ public class testConjuntos {
 
        if (cur == v.length) {  // Caso base: terminamos o conjunto
 
+         // Não imprimir o conjunto vazio
+/*          int not = 0;
+
+         for (int i=0; i<v.length; i++) {
+              if (used[i]) {
+                 break;
+              } else {
+                 not ++;
+              }
+         }
+         
+         if (not == v.length)
+            return; */
+
           // Escrever conjunto
           System.out.print("Set:");
+
 
           for (int i=0; i<v.length; i++) 
              if (used[i]) System.out.print(" " + v[i]);
@@ -35,7 +50,7 @@ public class testConjuntos {
     // -----------------------------------------------------------
 
    public static void main(String[] args) {
-      int v[] = {2,4,6,8}; // Inicializacao de array
+      int v[] = {2,4,6,8,7}; // Inicializacao de array
 
       sets(v);
    }

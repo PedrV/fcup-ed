@@ -3,12 +3,12 @@ package week12;
 import java.util.Arrays;
 
 
-class Team implements Comparable<Team> {
+class Teams implements Comparable<Teams> {
     String name;
     Integer points; 
 
     // Construtor
-    Team(String n, int p) {
+    Teams(String n, int p) {
         name = n;
         points = p;
     }
@@ -18,7 +18,7 @@ class Team implements Comparable<Team> {
         return "(" + name + "," + points + ")";
     }
 
-    public int compareTo (Team t) {
+    public int compareTo (Teams t) {
         int comp = -points.compareTo(t.points);
 
         if (comp == 0) 
@@ -32,15 +32,15 @@ class Team implements Comparable<Team> {
 
 public class Test {
     public static void main (String[] args) {
-        Team[] v = new Team[7];
+        Teams[] v = new Teams[7];
 
-        v[0] = new Team("Leicester", 20);
-        v[1] = new Team("Chelsea", 31);
-        v[2] = new Team("Arsenal", 20);
-        v[3] = new Team("Liverpool", 42);
-        v[4] = new Team("Man United", 37);
-        v[5] = new Team("Man City", 20);
-        v[6] = new Team("Tottenham", 39);
+        v[0] = new Teams("Leicester", 20);
+        v[1] = new Teams("Chelsea", 31);
+        v[2] = new Teams("Arsenal", 20);
+        v[3] = new Teams("Liverpool", 42);
+        v[4] = new Teams("Man United", 37);
+        v[5] = new Teams("Man City", 20);
+        v[6] = new Teams("Tottenham", 39);
         
         // Ordenar e escrever array v
         Arrays.sort(v);
