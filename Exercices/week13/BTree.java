@@ -1,12 +1,26 @@
 package week13;
 
-// -----------------------------------------------------------
-// Estruturas de Dados 2019/2020 (CC1007) - DCC/FCUP
-// http://www.dcc.fc.up.pt/~pribeiro/aulas/edados1920/
-// -----------------------------------------------------------
-// Arvore binaria "normal"
-// Ultima alteracao: 26/04/2018
-// -----------------------------------------------------------
+
+/* ----------- ----------- ----------- ----------- ----------- ----------- ----------- ----------- ----------- ----------- ----------- -----------
+   Nome: Pedro Campos Vieira
+   Número mecanográfico: 201905272
+   Comentário: Ao longo do codigo existem comentarios pretinentemente localizados de forma a tentar explicar o que faz cada parte, no entanto aqui ficam raciocionios mais gerais:
+
+   -- internal(): este método é bastante simples, apenas vai recursivamente ver se um determinado nó tem pelo menos um filho e caso afirmativo acrescenta-o há lista
+   -- cut(): este método vai "reconstruindo" a árvore até encontrar a altura que deve ser cortada, ou seja quando a variavel "d" chega a 0. Quando isto acontece
+   é a recursão para, retornando null.
+   -- maxLevel(): para resolver este problema, existem 2 metodos, um que calcula a quantidade de nos em cada nivel da árvore, numberNodesLVL() e o maxLevel() que descobre qual
+   o maior numero de nos em cada nivel e em quantos niveis esse numero aparece.
+
+   Complexidade:
+   -- internal(): este metodo passa uma vez por cada filho da árvore. Logo tem complexidade O(n), onde n são o numero de nos da árvore
+   -- cut(): este metodo percorre todos os nós até a altura de corte "x". Admitindo que "x" pode ser maior que a altura da árvore, este metodo tem 
+   complexidade O(n), onde n é a altura da árvore.
+   -- maxLevel(): dividindo este metodo em todos os metodos que nele participam, temos uma complexidade linear do metodo depth(), mais uma complexiade linear de numberNodesLVL(), em qua apenas numa passagem
+   sobre a altura da árvore descobre a quantidade de nós em cada nivel, mais a complexidade do proprio maxLevel, que tem um ciclo pela altura da árvore (length do array number_nodes).
+   Tudo isto resulta em algo parecido a n + n + n, ou seja 3n, ou seja O(n), onde n é a altura da árvore.
+   ----------- ----------- ----------- ----------- ----------- ----------- ----------- ----------- ----------- ----------- ----------- ----------- */
+
 
 public class BTree<T> {   
    private BTNode<T> root; // raiz da arvore
@@ -149,8 +163,8 @@ public class BTree<T> {
    }
 
 
-   // --------------------------------------------------------
    // Metodos adicionados para ED233
+   // --------------------------------------------------------
 
    /////////////////////////////////////////////////////////////////
    public int internal() {
@@ -181,11 +195,15 @@ public class BTree<T> {
       }
 
       cut(root, d);  // Fazer corte em altura d, onde 0 < d <= h e h representa a altura da árvore 
+      return;
    }
 
    private BTNode<T> cut (BTNode<T> n, int d) {
       // Assim que chegarmos ao nivel desejado para cortar, parar a recursao retornando null
       if (d == 0)
+         return null;
+
+      if (n == null)
          return null;
 
       n.setLeft(cut(n.getLeft(), d-1));      // Ir reconstruindo a árvore à esquerda em cada nivel
@@ -199,44 +217,64 @@ public class BTree<T> {
 
    //////////////////////////////////////////////////////////////////
    public int[] maxLevel() {
-      int[] level = {1,1}; // No pior dos casos a árvore tem apenas a raiz (já que é dada a garantia que a árvore nunca é nula) e por isso tem no maximo 1 nó que aparece uma vez
+      int[] level = {1,1};                   // No pior dos casos a árvore tem apenas a raiz (já que é dada a garantia que a árvore nunca é nula) e por isso tem no maximo 1 nó que aparece uma vez
+      int depth = depth(root);               // Altura da árvore
+      int[] number_nodes = new int[depth];   // Array que irá conter o numero nos em cada nivel da árovre (raiz nao incluida)
 
-      for (int i = 1; i <= depth(root); i++) {
-         int number_nodes = numberNodesLVL(root, i);
+      // Caso em que é apenas a raiz da árvore não é preciso testar nada
+      if (depth == 0) {
+         return level;
+      }
 
-         if (number_nodes > level[0]) {
-            level[0] = number_nodes;
-            level[1] = 1;
-         } else if (number_nodes == level[0]) {
-            level[1]++;
+      // Calcular o numero de nós em cada nível
+      numberNodesLVL(root, 0, depth-1, number_nodes);
+
+      // Começar no nivel 1, pois a raiz está automaticamente classificada na inicialização do array level com {1,1}
+      for (int i = 0; i < depth; i++) {
+
+         // Ver se determinado numero de nos na altura i+1 é maior que numero de nós atual (no incio o maior ja visto é a raiz)
+         if (number_nodes[i] > level[0]) {
+            level[0] = number_nodes[i];   // Atualizar maior quantidade de nós
+            level[1] = 1;                 // Atualizar quantidade de niveis com maior quantidade de nós
+
+         // Ver se determinado numero de nos na altura i+1 é igual ao numero de nos atual (no incio o maior ja visto é a raiz)
+         } else if (number_nodes[i] == level[0]) {
+            level[1]++;  // Atualizar quantidade de niveis com maior quantidade de nós
          }
 
       }
 
-
       return level;
    }
 
-   private int numberNodesLVL (BTNode<T> n, int d) {
-      if (d == 1) {
+   // Calcular o numero total de nós num nivel d da árvore
+   private void numberNodesLVL (BTNode<T> n, int d, int stop, int[] nodes) {
 
-         if (n == null)
-            return 0;
-         
-         if (n.getLeft() == null && n.getRight() == null)
-            return 0;
+      // Se o nó em questão for null, então nao tem filhos
+      if (n == null)
+         nodes[d] += 0;
+      
+      // Ver filho esquerdo e direito do atual, se forem os 2 null, então nao existem filhos
+      if (n.getLeft() == null && n.getRight() == null) {
+         nodes[d] += 0;
 
-         else if (n.getLeft() != null && n.getRight() != null)
-            return 2;
+      // Se ambos os filhos de não forem null então ele tem 2 filhos  
+      } else if (n.getLeft() != null && n.getRight() != null) {
+         nodes[d] += 2;
 
-         else
-            return 1;
-
+      // Caso contrario então ele vai ter um filho à esquerda ou direita, mas não os 2. De qualquer maneira terá apenas 1 
       } else {
-         if (n == null)
-            return 0;
-
-         return numberNodesLVL(n.getLeft(), d-1) + numberNodesLVL(n.getRight(), d-1);
+         nodes[d] += 1;
+      }
+      
+      // Calcular a quantidade de nos em todos os niveis até à altura da árvode (stop)
+      if (d < stop) {
+         if(n.getLeft() != null) {  // Verificar se nó da esquerda é possivel visitar ou se é null
+            numberNodesLVL(n.getLeft(), d+1, stop, nodes);
+         }
+         if (n.getRight() != null) { // Verificar se nó da direita é possivel visitar ou se é null
+            numberNodesLVL(n.getRight(), d+1, stop, nodes);
+         }
       }
    }
 
