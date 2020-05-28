@@ -1,4 +1,4 @@
-package week13;
+package week13.submissao;
 
 // -----------------------------------------------------------
 // Estruturas de Dados 2019/2020 (CC1007) - DCC/FCUP

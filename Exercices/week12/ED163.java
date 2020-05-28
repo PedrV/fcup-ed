@@ -5,48 +5,38 @@ import java.util.Arrays;
 
 class Team implements Comparable<Team> {
     private String name;
-    private int victory;
-    private int tie;
-    private int defeat;
-    private int scored;
-    private int suffered;
     private Integer points;
     private Integer goal_avg;
 
-    Team (String name, int victory, int tie, int defeat, int scored, int suffered) {
+    Team(final String name, final int victory, final int tie, final int defeat, final int scored, final int suffered) {
         this.name = name;
-        this.victory = victory;
-        this.defeat = defeat;
-        this.scored = scored;
-        this.suffered = suffered;
-
         points = 3 * victory + 1 * tie;
         goal_avg = scored - suffered;
     }
 
-    public int compareTo (Team t) {
+    public int compareTo(Team t) {
         int comp = -points.compareTo(t.points);
         int comp1 = -goal_avg.compareTo(t.goal_avg);
 
         if (comp == 0) {
-            if (comp1 == 0) 
+            if (comp1 == 0)
                 return name.compareTo(t.name);
-            else 
+            else
                 return comp1;
         } else {
             return comp;
         }
     }
 
-    public String toString () {
+    public String toString() {
         return String.format("%s %d %d", name, points, goal_avg);
     }
 }
 
 public class ED163 {
-    
-    public static void main (String[] args) {
-        Scanner scan = new Scanner (System.in);
+
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
 
         int table_size = scan.nextInt();
         scan.nextLine();

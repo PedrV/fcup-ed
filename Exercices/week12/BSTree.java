@@ -288,4 +288,85 @@ public class BSTree<T extends Comparable <? super T>> {
 
     //-------------------------------------------------------------------
 
+    // ED210 - Verificar se sao BST
+
+    public boolean valid() {
+        return valid (root);
+    }
+
+    private boolean valid (BSTNode<T> n) {
+
+        if (n.getLeft() == null)    // By default no nodes indicate valid left tree
+            return true;
+        
+        if (n.getRight() == null)   // By default no nodes indicate valid right tree
+            return true;
+
+        BSTNode<T> left = n.getLeft();      // Pointer for the left subtree of the node n
+        BSTNode<T> right = n.getRight();    // Pointer for the right subtree of the node n
+
+        // Search all of the left subtree of the current node, to see if all the nodes are smaller than the current node
+        if (left.getValue().compareTo(n.getValue()) < 0) {  // Check if the root of the left subtree is smaller then the current node n
+
+            // Left subtree of the left subtree
+            while (left.getLeft() != null) {
+
+                left = left.getLeft();
+
+                if (left.getValue().compareTo(n.getValue()) > 0) 
+                    return false;  
+                    
+            }
+
+            left = n.getLeft();   // Reset the pointer
+
+            // Right subtree of the left subtree
+            while (left.getRight() != null) {
+
+                left = left.getRight();
+
+                if (left.getValue().compareTo(n.getValue()) > 0) 
+                    return false;
+                
+            }
+
+        } else {
+            return false;
+        }
+
+
+        // Search all of the rigth subtree of the current node, to see if all the nodes are bigger than the current node
+        if (right.getValue().compareTo(n.getValue()) > 0) {
+
+            // Left subtree of the right subtree
+            while (right.getLeft() != null) {
+
+                right = right.getLeft();
+
+                if (right.getValue().compareTo(n.getValue()) < 0) 
+                    return false;  
+                    
+            }
+
+            right = n.getRight();   // Reset the pointer
+
+            // Right subtree of the right subtree
+            while (right.getRight() != null) {
+
+                right = right.getRight();
+
+                if (right.getValue().compareTo(n.getValue()) < 0) 
+                    return false;
+            }
+            
+        } else {
+            return false;
+        }
+        
+        return valid(n.getLeft()) && valid(n.getRight());   // Processed to call the function for the rest of the nodes
+
+    }
+
+    //-------------------------------------------------------------------
+
 }

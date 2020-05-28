@@ -1,4 +1,4 @@
-package week13;
+package week13.submissao;
 
 import java.util.Arrays;
 import java.util.Random;
