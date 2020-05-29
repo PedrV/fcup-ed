@@ -1,107 +1,94 @@
 package week13;
 
-// -----------------------------------------------------------
-// Estruturas de Dados 2019/2020 (CC1007) - DCC/FCUP
-// http://www.dcc.fc.up.pt/~pribeiro/aulas/edados1920/
-// -----------------------------------------------------------
-// Fila de Prioridade (com uma minHeap)
-// Em caso de empate no minimo, devolve um qualquer (dos minimos)
-// Ultima alteraÃ§Ã£o: 18/05/2018
-// -----------------------------------------------------------
-
 import java.util.Comparator;
 
-public class MinHeap<T> {
-   private T[] data; // Guardar elementos entre posicoes 1 e size
-   private int size; // Quantidade de elementos
-   private Comparator<T> comparator; // Comparador (opcional)
+public class MinHeap <T> {
+    private T[] data;
+    private int size;
+    private Comparator<T> comparator;
 
-   // Construtor (heap com uma dada capacidade)
-   @SuppressWarnings("unchecked") // Por causa da criaçao de um array de genericos
-   MinHeap(int capacity) {
-      data = (T[]) new Object[capacity+1]; // Java proibe directamente array de genericos, dai o cast
-      size = 0;
-      comparator = null;
-   }
 
-   // Construtor (heap com uma dada capacidade e comparador customizado)
-   MinHeap(int capacity, Comparator<T> comp) {
-      this(capacity); // Chama o construtor padrÃ£o
-      comparator = comp;
-   }
+    @SuppressWarnings ("unchecked")     // Java não admite cast para array de genericos
+    MinHeap (int capacity) {
+        size = 0;
+        data = (T[]) new Object[capacity+1];
+    }
 
-   // Numero de elementos guardados na heap
-   public int size() {
-      return size;
-   }
+    MinHeap (int capacity, Comparator<T> comp) {
+        this(capacity);
+        comparator = comp;
+    }
 
-   // Heap vazia?
-   public boolean isEmpty() {
-      return (size==0);
-   }
+    // -----------------------------------------------------------
 
-   // ---------------------------------------------------------------------
-   
-   // Inserir um elemento na heap
-   public void insert(T value) {
-      if (size >= data.length) throw new RuntimeException("Heap is full");
-      size++;
-      data[size] = value;
-      upHeap(size);
-   }
+    public int size () { return size;}
 
-   // Devolver (sem retirar) elemento minimo
-   public T min() {
-      if (isEmpty()) return null;
-      return data[1];
-   }
+    public boolean isEmpty () { return size==0; }
 
-   // Remover e devolver elemento minimo
-   public T removeMin() {
-      if (isEmpty()) return null;
-      T min = data[1];
-      data[1] = data[size];
-      data[size] = null; // Para ajudar no garbage collection
-      size--;
-      downHeap(1);
-      return min;
-   }
+    public T min () {
+        if (isEmpty()) return null;
+        return data[1];
+    }
 
-   // ---------------------------------------------------------------------
-   
-   // Fazer um elemento subir na heap ate a sua posiÃ§Ã£o
-   private void upHeap(int i) {
-      while (i>1 && smaller(i, i/2)) { // Enquanto o elemento for menor que o pai e nÃ£o estiver na raiz
-         swap(i, i/2);                 // Trocar com o pai
-         i = i/2;
-      }
-   }
+    // -----------------------------------------------------------
 
-   // Fazer um elemento descer na heap ate a sua posiÃ§Ã£o
-   private void downHeap(int i) {
-      while (2*i <= size) { // Enquanto estiver dento dos limites da heap
-         int j = i*2;
-         if (j<size && smaller(j+1, j)) j++; // Escolher filho mais pequeno (posicao i*2 ou i*2+1)
-         if (smaller(i, j)) break;           // Se no ja e menor que filho mais pequeno, terminamos
-         swap(i, j);                         // Caso contrario, trocar com filho mais pequeno
-         i = j;
-      }
-   }
+    public void insert (T value) {
+        if (size+1 >= data.length) throw new RuntimeException("Heap is full");
+        data[++size] = value;   // Inserir no fim, ultima posiçao do array
+        upHeap(size);           // Depois de inserir no fim temos de verificar que o heap nao foi alterado (a sua ordem de niveis)
+    }
 
-   // Saber o elemento na posiÃ§Ã£o i e menor que o elemento na posiÃ§Ã£o j
-   @SuppressWarnings("unchecked") // Para que o java nÃ£o se queixe do cast que diz que elementos sÃ£o comparaveis
-   private boolean smaller(int i, int j) {
-      if (comparator == null) // Se nÃ£o existe comparador usar comparaÃ§Ã£o natural
-         return ((Comparable<? super T>) data[i]).compareTo(data[j]) < 0;
-      else // Se existe comparador... usa-lo
-         return comparator.compare(data[i], data[j]) < 0;
-   }
+    public T removeMin () {
+        if (isEmpty()) return null;
 
-   // Trocar elementos entre as posiÃ§Ãµes i e j
-   private void swap(int i, int j) {
-      T tmp = data[i];
-      data[i] = data[j];
-      data[j] = tmp;
-   }
-      
+        T temp = data[1];           // Obter elemento na raiz
+        data[1] = data[size];       // Mudar o elemento da raiz para o elemento no fim do array, nó terminal mais à direita
+        data[size] = null;          // Ajudar garbage collection
+        size--;
+        downHeap(1);                // Reconstruir a heap, pois agora o elemento à raiz nao é o mais pequeno (ou o maior no caso de maxHeap)
+        return temp;                
+    }
+
+
+    // -----------------------------------------------------------
+
+    private void upHeap (int i) {
+        while (i > 1 && smaller(i, i/2)) {      // Enquanto o nosso elemento nao estiver na raiz e for menor que o pai (o maior no caso da maxHeap)
+            swap(i, i/2);                       // Trocar filho e pai
+            i /= 2;
+        }
+    }
+
+
+    private void downHeap (int i) {             
+        while (i*2 <= size) {                   // Enquanto houver pelo menos o filho da esquerda disponivel para ir para lá
+            int j = i*2;                        // Preparar index do filho da esquerda que sabemos que existe
+
+            if (j < size && smaller(j+1, j))    // Se filho da esquerda for menor que size, então sabemos que o seu "irmao", o filho da direita vai existir pois é o index ao lado ou seja é no pior caso igual ao size,
+                j++;                            // Podemos comparar entre os dois filhos e decidir qual é o menor (maior no caso maxHeap)
+            
+            if (smaller(j, i))                  // Se o menor filho for menor que o pai
+                swap(i, j);                     // Troca-los de posiçao, filho vai para cima na árvore e o pai, que consideramos inicialmente vai para baixo
+            else
+                break;                          // Se isto não ocorrer nao nos interessa a troca
+
+            i = j;                              // Update da poisção do pai (que ja nao é mais pai dos filhos anteriores :D)
+        }
+
+    }
+
+    private void swap (int i, int j) {
+        T temp = data[i];
+        data[i] = data[j];
+        data[j] = temp;
+    }
+
+    @SuppressWarnings ("unchecked")     // Java não suporta cast de um tipo T para um tipo comparavel
+    private boolean smaller (int i, int j) {
+        if (comparator == null) // Caso nao seja passado comparador customizado usar o default
+            return ((Comparable <? super T>) data[i]).compareTo(data[j]) < 0;   // Para criar maxHeap, trocar este sinal
+        else 
+            return comparator.compare(data[i], data[j]) < 0;    // Para criar maxHeap, trocar este sinal
+    }
+
 }

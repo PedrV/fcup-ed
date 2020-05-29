@@ -5,6 +5,7 @@ package week13.submissao;
    Nome: Pedro Campos Vieira
    Número mecanográfico: 201905272
    Comentário: Ao longo do codigo existem comentarios pretinentemente localizados de forma a tentar explicar o que faz cada parte, no entanto aqui ficam raciocionios mais gerais:
+   (Update depois de ter falado com o Prof. Pedro Ribeiro sobre a compleixade do maxLevel())
 
    -- internal(): este método é bastante simples, apenas vai recursivamente ver se um determinado nó tem pelo menos um filho e caso afirmativo acrescenta-o há lista
    -- cut(): este método vai "reconstruindo" a árvore até encontrar a altura que deve ser cortada, ou seja quando a variavel "d" chega a 0. Quando isto acontece
@@ -16,9 +17,10 @@ package week13.submissao;
    -- internal(): este metodo passa uma vez por cada filho da árvore. Logo tem complexidade O(n), onde n são o numero de nos da árvore
    -- cut(): este metodo percorre todos os nós até a altura de corte "x". Admitindo que "x" pode ser maior que a altura da árvore, este metodo tem 
    complexidade O(n), onde n é a altura da árvore.
-   -- maxLevel(): dividindo este metodo em todos os metodos que nele participam, temos uma complexidade linear do metodo depth(), mais uma complexiade linear de numberNodesLVL(), em qua apenas numa passagem
-   sobre a altura da árvore descobre a quantidade de nós em cada nivel, mais a complexidade do proprio maxLevel, que tem um ciclo pela altura da árvore (length do array number_nodes).
-   Tudo isto resulta em algo parecido a n + n + n, ou seja 3n, ou seja O(n), onde n é a altura da árvore.
+   -- maxLevel(): - sim o depth() tem complexidade O(n) -> passa uma vez pode cada nó
+                  - maxNodesLVL() é a mesma coisa, e também tem O(n) -> passa uma vez por cada nó
+                  - o ciclo dentro do maxLevel também O(n) -> no pior caso a altura é igual ao número de nós
+                  Logo complexidade é O(n) sobre o numero de nos da árvore 
    ----------- ----------- ----------- ----------- ----------- ----------- ----------- ----------- ----------- ----------- ----------- ----------- */
 
 
