@@ -1,0 +1,1 @@
+Esta pasta representa todos os exemplos de codigo dados em Estruras de Dados 19/20
