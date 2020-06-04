@@ -11,7 +11,7 @@ package week14.util;
 public class LinkedListQueue<T> implements MyQueue<T> {
    private DoublyLinkedList<T> list;
 
-   LinkedListQueue() { list = new DoublyLinkedList<T>();}
+   public LinkedListQueue() { list = new DoublyLinkedList<T>();}
    
    public void enqueue(T v) { list.addLast(v); }   
    public T dequeue() {

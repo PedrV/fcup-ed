@@ -5,7 +5,7 @@ import week11.util.*;
 public class BSTree<T extends Comparable <? super T>> {
     private BSTNode<T> root;
 
-    BSTree () {
+    public BSTree () {
         root = null;
     }
 

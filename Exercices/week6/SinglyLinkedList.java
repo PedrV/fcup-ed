@@ -270,10 +270,7 @@ public class SinglyLinkedList <T> {
 
     public void join (SinglyLinkedList <T> list) {
 
-        Node <T> cur = first;
         Node <T> curList = list.first;
-
-        for(int i = 0; i < size; i++){ cur = cur.getNext(); } // go to last pos
 
         for(int i = 0; i < list.size; i++) {
             addLast(curList.getValue());
