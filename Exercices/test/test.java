@@ -32,7 +32,7 @@ class Triple<K,V,D> {
     }
 }
 
-class Pair<K,V> {
+/* class Pair<K,V> {
     private K key;
     private V value;
 
@@ -53,7 +53,7 @@ class Pair<K,V> {
     }
 
 }
-
+ */
 
 
 class Person {
