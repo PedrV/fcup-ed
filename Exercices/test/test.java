@@ -56,7 +56,7 @@ class Triple<K,V,D> {
  */
 
 
-class Person {
+/* class Person {
     private String name;
     private Integer age;
 
@@ -132,7 +132,7 @@ class Worker extends Person {
         return "Hello kind person, my name is " + super.getName() + " I'm " + super.getAge() + " I proudly work at " + company
         + " and my salary is none of your business," + " glad to meet you!";
     }
-}
+} */
 
 /* class StudentWorker extends Student {
     private class StudentWorker4real extends Worker {

@@ -282,4 +282,23 @@ public class BSTree<T extends Comparable <? super T>> {
 
     //-------------------------------------------------------------------
 
+    // ED208 - max e min
+    // ------------------------------------------------------------------------ \\
+
+    public T minValue() {
+        BSTNode<T> n = root;
+        while (n.getLeft() != null)
+            n = n.getLeft();
+
+        return n.getValue();
+    }
+
+    public T maxValue() {
+        BSTNode<T> n = root;
+        while (n.getRight() != null)
+            n = n.getRight();
+
+        return n.getValue();
+    }
+
 }

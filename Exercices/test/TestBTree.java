@@ -14,6 +14,20 @@ import java.util.Queue;
 
 public class TestBTree {
 
+    public static int countEven(BTree<Integer> t) {
+        return countEven(t.getRoot());
+    }
+
+    private static int countEven (BTNode<Integer> n) {
+        if (n == null)
+            return 0;
+
+        if (n.getValue() % 2 == 0)
+            return 1 + countEven(n.getLeft()) + countEven(n.getRight());
+        else
+            return countEven(n.getLeft()) + countEven(n.getRight());
+    }
+
     public static int[] sumLevels(BTree<Integer> t) {
         int[] levels = new int[t.depth()+1];
 

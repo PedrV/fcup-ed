@@ -5,32 +5,6 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
-class Pair <X,Y> {
-    private X xvalue;
-    private Y yvalue;
-    
-    Pair (final X xvalue, final Y yvalue) {
-        this.xvalue = xvalue;
-        this.yvalue = yvalue;
-    }
-
-    public X getXvalue() {
-        return xvalue;
-    }
-
-    public Y getYvalue() {
-        return yvalue;
-    }
-
-    public void setXvalue(final X xvalue) {
-        this.xvalue = xvalue;
-    }
-
-    public void setYvalue(final Y yvalue) {
-        this.yvalue = yvalue;
-    }
-}
-
 public class ED234 {
     public static void main(final String[] args) {
         final TreeMap<String, Pair<Integer, Integer>> movies = new TreeMap<>();
