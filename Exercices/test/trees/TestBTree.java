@@ -43,6 +43,22 @@ public class TestBTree {
         return sumLevels(n.getLeft(), level-1) + sumLevels(n.getRight(), level-1);
     }
 
+    // ED212 - Alt
+    public static int[] sumLevelsV2(BTree<Integer> t) {
+        int[] ans = new int[t.depth()];
+        sumLevelsV2(t.getRoot(), ans, 0);
+        return ans;
+    }
+
+    private static void sumLevelsV2 (BTNode<Integer> n, int[] ans, int d) {
+        if (n == null)
+            return;
+
+        ans[d] += n.getValue();
+        sumLevelsV2(n.getRight(), ans, d+1);
+        sumLevelsV2(n.getLeft(), ans, d+1);
+    }
+
     public static void main(String[] args) {
 
 /*         String line = "6 3 2 1 N N N 5 N 7 N N 10 8 N 9 N N 25 N N";
@@ -98,10 +114,11 @@ public class TestBTree {
         } */
         
 
-        String s = "5 3 1 N N 4 N N 10 7 N N 42 N N";
+        String s = "8 5 1 N N 7 6 N N N 10 9 N N 42 N N";
         String s1 = "7 5 N 6 N N 9 8 N N 10 N N";
         String s2 = "5 4 2 N N 7 N N 8 N N";
-        String s3 = "5 3 1 N N 2 N N 7 6 N N 8 N N";
+        String s3 = "99 98 12312 96 95 N N N N N N N N N N";
+        String s4 = "5 3 1 N N 2 N N 7 6 N N 8 N N";
 
         Scanner scan = new Scanner (s);
         Scanner scan1 = new Scanner (s1);
@@ -117,5 +134,6 @@ public class TestBTree {
         System.out.println(t1.valid());
         System.out.println(t2.valid());
         System.out.println(t3.valid());
+        
     }
 }

@@ -4,14 +4,9 @@ public class list {
     public static void main(String[] args) {
 
         /* 
-        
-        -- Domingo
+        -- Segunda
             - [ED202]
             - Revisao de recursao perm e sets
-            - Ver video Revisoes prof
-
-        -- Segunda
-            - Possivel left over do Domingo
             - Mini revisao de todos os exercicios (ver implementaçoes)
         
         */

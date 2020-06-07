@@ -80,6 +80,39 @@ class Kadane {
         else
             return biggest_sum;
     }
+
+    public int minSubArray (int[] nums) {
+        int final_min = 0;
+        int cur_min = 0;
+        int single_min = Integer.MAX_VALUE;
+
+        for (int i = 0; i < nums.length; i++) {
+
+            single_min = Math.min(single_min, nums[i]);
+
+            if (nums[i] > 0) {
+
+                cur_min += nums[i];
+
+                if (cur_min > 0) {
+                    cur_min = 0;
+                }
+
+                if (cur_min < final_min) {
+                    final_min = cur_min;
+                }
+
+            } else {
+                cur_min += nums[i];
+                final_min = Math.min(final_min, cur_min);
+            }
+        }
+
+        if (single_min > final_min && final_min == 0) 
+            return single_min;
+        else 
+            return final_min;
+    }
 }
 
 
@@ -88,9 +121,10 @@ public class ED198 {
         Kadane test = new Kadane();
 
         int[] numbers = {-1,-5,4,-2,5,-5,-2,-20,6};
+        int[] numbers1 = {1,2,4,-5};
 
         System.out.println(Arrays.toString(test.maxSubArray(numbers)));
-
+        System.out.println(test.minSubArray(numbers1));
 
     }
 
