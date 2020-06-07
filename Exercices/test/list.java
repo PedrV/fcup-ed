@@ -6,7 +6,7 @@ public class list {
         /* 
         
         -- Domingo
-            - [ED202] [ED213] ( [ED212] [ED209] [ED210] - rever )
+            - [ED202]
             - Revisao de recursao perm e sets
             - Ver video Revisoes prof
 
