@@ -10,20 +10,19 @@ public class TestSinglyLinkedList {
    public static void main(String[] args) {
 
       // Criacao de lista de inteiros
-      SinglyLinkedList<Integer> list = new SinglyLinkedList<Integer>();
+      SinglyLinkedList<Character> list = new SinglyLinkedList<>();
 
       // Escrevendo lista (no inicio esta vazia)
-      System.out.println(list);
 
-      // Verificando se esta vazia
+/*       // Verificando se esta vazia
       System.out.println("isEmpty? " + list.isEmpty());     
       
       // Adicionando numeros de 1 a 5 ao final da lista
       for (int i=1; i<=5; i++)
          list.addLast(i);
-      System.out.println(list);
+      System.out.println(list); */
 
-      // Adicionando numeros de 6 a 10 ao inicio da lista
+      /* // Adicionando numeros de 6 a 10 ao inicio da lista
       for (int i=6; i<=10; i++)
          list.addFirst(i);
       System.out.println(list);
@@ -44,6 +43,18 @@ public class TestSinglyLinkedList {
 
       // Escreve o primeiro e ultimo elementos
       System.out.println("getFirst() = " + list.getFirst());
-      System.out.println("getLast() = " + list.getLast());
+      System.out.println("getLast() = " + list.getLast()); */
+
+      list.addLast('a');
+      list.addLast('b');
+      list.addLast('c');
+      list.addLast('d');
+      list.addLast('e');
+
+      /* SinglyLinkedList<Integer> nl = list.cut(0, 3); */
+
+      System.out.println(list);
+      list.shift(4);
+      System.out.println(list);
    }
 }

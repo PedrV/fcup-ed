@@ -8,6 +8,7 @@
 
 public class SinglyLinkedList<T> {
    private Node<T> first;    // Primeiro no da lista
+   private Node <T> last;
    private int size;         // Tamanho da lista
 
    // Construtor (cria lista vazia)
@@ -34,7 +35,7 @@ public class SinglyLinkedList<T> {
    }
 
    // Adiciona v ao final da lista
-   public void addLast(T v) {
+/*    public void addLast(T v) {
       Node<T> newNode = new Node<T>(v, null); 
       if (isEmpty()) {
          first = newNode;
@@ -45,7 +46,7 @@ public class SinglyLinkedList<T> {
          cur.setNext(newNode);         
       }
       size++;
-   }
+   } */
 
    // Retorna o primeiro valor da lista (ou null se a lista for vazia)
    public T getFirst() {
@@ -172,10 +173,43 @@ public class SinglyLinkedList<T> {
    
    // ------------------------------------------------------------------------------------------------------ \\
 
+   public SinglyLinkedList<T> cut(int a, int k) {
+      SinglyLinkedList<T> nlist = new SinglyLinkedList<>();
+      Node<T> cur = first;
 
+      for (int i = 0; i < size; i++) {
+         if (i >= a && i <= k+a-1)
+            nlist.addLast(cur.getValue());
+         cur = cur.getNext();
+      }
+
+
+      return nlist;
+   }
    
+   public void shift(int k) {
+      
+      if (k == size)
+         return;
+
+      for (int i = 0; i < k; i++) {
+         addLast(getFirst());
+         removeFirst();
+      }
+   }
 
 
+   public void addLast (T value) {
+      Node<T> newNode = new Node<T>(value, null); 
+      if (isEmpty()) {
+        first = newNode;
+        last = newNode;
+      } else {
+        last.setNext(newNode);
+        last = newNode;
+      }
+      size++;
+   } 
 
 
 
