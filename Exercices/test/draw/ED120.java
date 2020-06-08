@@ -183,6 +183,6 @@ public class ED120 {
     
 
     public static void main(final String[] args) {
-        circle(7);
+        losangulo(7);
     }
 }
