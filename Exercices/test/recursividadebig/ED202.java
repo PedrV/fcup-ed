@@ -72,8 +72,7 @@ public class ED202 {
         for(int i = 0; i < number_locations; i++)
             for (int j = 0; j < number_locations; j++) 
                 map[i][j] = Double.parseDouble(scan.next());
-             
-            
+        
         Permutations.permutations(locations, map);
         System.out.println(Permutations.min_distance);
 
