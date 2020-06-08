@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 // -----------------------------------------------------------
 // Estruturas de Dados 2019/2020 (CC1007) - DCC/FCUP
 // http://www.dcc.fc.up.pt/~pribeiro/aulas/edados1920/
@@ -148,7 +150,56 @@ public class BTree<T> {
 
    // --------------------------------------------------------
 
-   // --------------------------------------------------------
+   public int count() {
+      return count (root);
+   }
 
+   private int count (BTNode<T> n) {
+      if (n == null)
+         return 0;
+
+      if (n.getLeft() != null && n.getRight() == null || n.getLeft() == null && n.getRight() != null)
+         return 1 + count(n.getLeft()) + count(n.getRight());
+      else
+         return count(n.getLeft()) + count(n.getRight());
+   }
+
+   // --------------------------------------------------------
+   
+   public int level(T v) {
+      ArrayList<Integer> x = new ArrayList<>();
+      level(root, v, 0, x);
+
+      int min = -1;
+
+      for (Integer integer : x) {
+        min = Math.max(min,integer);
+      }
+      
+      if (min == -1)
+         return -1;
+
+      for (Integer integer : x) {
+         if (integer != -1)
+            if (integer < min)
+               min = integer;
+      }
+
+      return min;
+   }
+
+   private void level (BTNode<T> n, T v, int level, ArrayList<Integer> x) {
+      if (n == null) {
+         x.add(-1);
+         return;
+      }
+
+      if (n.getValue().equals(v))
+         x.add(level);
+      else {
+         level(n.getLeft(), v, level+1, x);
+         level(n.getRight(), v, level+1, x);
+      }
+   }
 
 }
