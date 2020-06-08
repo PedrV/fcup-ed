@@ -1,3 +1,5 @@
+package test_pratico;
+
 // -----------------------------------------------------------
 // Estruturas de Dados 2019/2020 (CC1007) - DCC/FCUP
 // http://www.dcc.fc.up.pt/~pribeiro/aulas/edados1920/

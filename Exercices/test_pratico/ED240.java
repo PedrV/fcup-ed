@@ -1,3 +1,5 @@
+package test_pratico;
+
 import java.util.ArrayList;
 
 public class ED240 {
