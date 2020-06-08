@@ -1,6 +1,8 @@
 public class test {
     public static void main(String[] args) {
-       System.out.println("test"); 
-       System.out.println("testV2"); 
+        MyStack<Integer> s = new LinkedListStack<>();
+
+        s.push(42);
+        System.out.println(s.top());
     }
 }
