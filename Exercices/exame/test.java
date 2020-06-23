@@ -63,17 +63,21 @@ class Student extends Person {
 public class test {
     public static void bitRep(int n) {
         
-        boolean one = false;
+        int one = 0;
 
         for (int i = 30; i >= 0; i--) {
             if ((n & (1 << i)) != 0) {
                 System.out.print("1");
-                one = true;
+                one++;
             } else {
-                if (one)
+                if (one > 0)
                     System.out.print("0");
             }
         }
+    
+        if (one == 0)   // All the bits are 0, the number is 0
+            System.out.println("0");
+
         System.out.println();
     }
 
@@ -105,8 +109,8 @@ public class test {
 /*        System.out.printf("|%+-10.3f|%n", Math.PI , Math.E );
        System.out.printf("|%010.3f|%n", Math.PI, Math.E ); */
 
-       String s = "pedro";
-       System.out.println(s.substring(1,3));
+        String s = "pedro";
+        System.out.println(s.substring(1,3));
 
         int num = 16; 
         System.out.println((num & 1) == 0); // ver se num é par
