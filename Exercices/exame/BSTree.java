@@ -1,5 +1,9 @@
 package exame;
 
+/* ALtura da árvore: log(n+1) - 1 (de 0 a h,onde n é o numero total de nos
+   Numero total de nos: 2^(h+1)-1 - onde h é a altura de da àrvore 
+*/
+
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
