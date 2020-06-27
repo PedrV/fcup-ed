@@ -1,6 +1,8 @@
 package exame;
 
+import java.util.Arrays;
 import java.util.Scanner;
+import java.util.Set;
 
 class Person {
     private String name;
@@ -94,8 +96,16 @@ public class test {
         int i1 = 5;
         int i2 = 15;
         int i3 = 20;
+
+        // Criar um Student usando o construtor Student
         Student person = new Student("Pedro", 19, 201905272);
         Student person1 = new Student("PedroV2", 19, 201905272);       
+
+        // Criar um Person usando um construtor Student
+        Person person2 = new Student("PedroV3", 19, 201905272);
+        
+        // ERRO: Usar o construtor de uma superclasse para criar uma subclasse
+        // Student person3 = new Person("PedroV3", 19);
 
         //System.out.println(i1 + " " + i2 + " " + i3);
         
@@ -114,5 +124,6 @@ public class test {
 
         int num = 16; 
         System.out.println((num & 1) == 0); // ver se num é par
+        System.out.println((15 & 0b1011));
     }
 }
