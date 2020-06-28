@@ -122,6 +122,7 @@ public class CircularLinkedList<T> {
         cur.setNext(cur.getNext().getNext());
         size--;
     }
+    
 
     public String toString () {
         String s = "{";

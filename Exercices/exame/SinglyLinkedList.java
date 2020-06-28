@@ -136,6 +136,47 @@ public class SinglyLinkedList <T>{
         size--;
     }
 
+    //Exam1718
+    // ****************************************************************************** //
+    public boolean contains (T value) {
+        Node<T> cur = first;
+        while(cur != null) {
+            if (cur.getValue().equals(value) ) return true;
+            cur = cur.getNext();
+        }
+        return false;
+    }
+
+    public boolean removed(int x) {
+        if (x < 0 || x >= size) return false;
+        Node<T> cur = first;
+        if (x == 0) {
+            first = first.getNext();
+            size--;
+            return true;
+        }
+
+        for (int i = 0; i != x-1; i++) cur = cur.getNext();
+        cur.setNext(cur.getNext().getNext());
+        size--;
+        return true;
+    }
+
+    public SinglyLinkedList<T> noDuplicates () {
+        T cur;
+        int sizec = size;
+        SinglyLinkedList<T> n = new SinglyLinkedList<>();
+        for (int i = 0; i < sizec; i++) {
+            cur = getLast();
+            removeLast();
+            if (!contains(cur)) n.addFirst(cur);
+        }
+        return n;
+    }
+
+    // ****************************************************************************** //
+
+
     public String toString () {
         String s = "{";
         Node<T> cur  = first;
@@ -149,6 +190,27 @@ public class SinglyLinkedList <T>{
             cur = cur.getNext();
         }
         return s+="}";
+    }
+
+    public SinglyLinkedList<T> rotate (int k) {
+        SinglyLinkedList<T> l = new SinglyLinkedList<>();
+
+        Node<T> cur = first;
+        Node<T> cur2 = first;
+        int rots = k % size;
+        for (; rots != 0; rots--) {
+            for (int i = 0; i < size-2; i++) { 
+                cur = cur.getNext(); 
+            }
+            cur2 = cur.getNext();
+            cur.setNext(null);
+            cur2.setNext(first);
+            first = cur2;
+            cur = first;
+        }
+
+        l.first = first;
+        return l;
     }
 
 }

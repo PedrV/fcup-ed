@@ -1,10 +1,12 @@
 package exame;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.Scanner;
 import java.util.Set;
 
-class Person {
+class Person<T> {
     private String name;
     private int idade;
 
@@ -47,6 +49,7 @@ class Student extends Person {
         super(name, idade);
         this.number = number;
     }
+
 
     /**
      * @param number the number to set
@@ -118,12 +121,13 @@ public class test {
 
 /*        System.out.printf("|%+-10.3f|%n", Math.PI , Math.E );
        System.out.printf("|%010.3f|%n", Math.PI, Math.E ); */
-
+ 
         String s = "pedro";
         System.out.println(s.substring(1,3));
 
         int num = 16; 
         System.out.println((num & 1) == 0); // ver se num é par
         System.out.println((15 & 0b1011));
+        System.out.println((4 & 0b10) >> 1); // Penultimo bit 
     }
 }

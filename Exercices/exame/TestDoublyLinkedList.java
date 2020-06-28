@@ -8,8 +8,10 @@ public class TestDoublyLinkedList {
       // Escrevendo lista (no inicio esta vazia)
       System.out.println(list);
 
+
       // Verificando se esta vazia
-      System.out.println("isEmpty? " + list.isEmpty());     
+      System.out.println("isEmpty? " + list.isEmpty());   
+        
       
       // Adicionando numeros de 1 a 5 ao final da lista
       for (int i=1; i<=5; i++)

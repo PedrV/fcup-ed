@@ -8,6 +8,7 @@ public class Node<T> {
         this.value = value;
         this.next = next;
     }
+    
 
     /**
      * @return the value

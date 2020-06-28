@@ -5,6 +5,7 @@ public class BSTNode<T extends Comparable<? super T>> {
     private BSTNode<T> right;
     private T value;
 
+    
     BSTNode (T value, BSTNode<T> left, BSTNode<T> right) {
         this.value = value;
         this.left = left;

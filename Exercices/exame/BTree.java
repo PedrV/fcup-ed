@@ -144,4 +144,38 @@ public class BTree<T> {
         System.out.println();
     }  
 
+    // ****************************************************************************** //
+    //Exam1718
+    public int leaves() {
+        return leaves(root);
+    }
+
+    private int leaves(BTNode<T> n) {
+        if (n == null) return 0;
+        if (n.getLeft() == null && n.getRight() == null)
+            return 1 + leaves(n.getLeft()) + leaves(n.getRight());
+        else
+            return leaves(n.getLeft()) + leaves(n.getRight());
+    }
+
+    public T[] bfs() {
+        @SuppressWarnings ("unchecked")
+        T[] a = (T[]) new Object[numberNodes()];
+        int i = 0;
+
+        BTNode<T> cur = root;
+        Queue<BTNode<T>> q = new LinkedList<>();
+
+        q.add(cur);
+        while (!q.isEmpty()) {
+            cur = q.poll();
+            if (cur != null) {
+                a[i++] = cur.getValue();
+                q.add(cur.getLeft());
+                q.add(cur.getRight());
+            }
+        }
+        return a;
+    }
+
 }

@@ -3,18 +3,18 @@ package exame;
 import java.util.Scanner;
 
 public class LibBTree {
-   public static BTree<Integer> readIntTree(Scanner in) {
-      BTree<Integer> t = new BTree<Integer>();
+   public static BTree<Character> readIntTree(Scanner in) {
+      BTree<Character> t = new BTree<Character>();
       t.setRoot(readIntNode(in));
       return t;
    }
    
-   private static BTNode<Integer> readIntNode(Scanner in) {
+   private static BTNode<Character> readIntNode(Scanner in) {
       String s = in.next();
       if (s.equals("N")) return null;
-      Integer value = Integer.parseInt(s);
-      BTNode<Integer> left = readIntNode(in);
-      BTNode<Integer> right = readIntNode(in);
-      return new BTNode<Integer>(left, right, value);
+      Character value = s.toCharArray()[0];
+      BTNode<Character> left = readIntNode(in);
+      BTNode<Character> right = readIntNode(in);
+      return new BTNode<Character>(left, right, value);
    }
 }

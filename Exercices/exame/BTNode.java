@@ -5,6 +5,7 @@ public class BTNode<T> {
     private BTNode<T> right;
     private T value;
 
+    
     BTNode (BTNode<T> left, BTNode<T> right, T value) {
         this.value = value;
         this.left = left;

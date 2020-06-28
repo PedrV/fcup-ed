@@ -88,6 +88,7 @@ public class DoublyLinkedList<T> {
             size--;
         }
     }
+    
 
     public void remove (int index) {
         if (index < 0 || index >= size || isEmpty())

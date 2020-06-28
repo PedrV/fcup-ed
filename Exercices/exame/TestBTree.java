@@ -6,7 +6,7 @@ public class TestBTree {
    public static void main(String[] args) {
       // Ler arvore de inteiros em preorder
       Scanner in = new Scanner(System.in);
-      BTree<Integer> t = LibBTree.readIntTree(in);
+     /*  BTree<Integer> t = LibBTree.readIntTree(in);
 
       // Escrever resultado de chamada a alguns metodos
       System.out.println("numberNodes = " + t.numberNodes());
@@ -19,7 +19,7 @@ public class TestBTree {
       t.printInOrder();
       t.printPostOrder();
       t.printBFS();
-      t.printDFS();
+      t.printDFS(); */
 
       /* 
       6 8 4 3 5 1 7
