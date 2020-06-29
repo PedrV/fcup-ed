@@ -95,18 +95,18 @@ public class exam1718 {
 
 
         // Adicionando numeros de 6 a 10 ao inicio da lista
-/*         for (int i=6; i<=10; i++)
-            list.addFirst(i); */
-/*         
+        for (int i=6; i<=10; i++)
+            list.addFirst(i);
+        
         System.out.println("list: " + list.toString());
         SinglyLinkedList<Integer> l = list.rotate(7);
-        System.out.println("l: " + l.toString()); */
+        System.out.println("l: " + l.toString());
 
 
-        BSTMap<Integer,Double> m1 = new BSTMap<>();
-        BSTMap<Double,String> m2 = new BSTMap<>();
+/*         BSTMap<Integer,Double> m1 = new BSTMap<>();
+        BSTMap<Double,String> m2 = new BSTMap<>(); */
 
-        m1.put(1, 1.0);
+/*         m1.put(1, 1.0);
         m1.put(42, 42.42);
         m1.put(69, 96.69);
         m1.put(123, 33.33);
@@ -120,7 +120,7 @@ public class exam1718 {
         LinkedList<Integer> o = r.keys();
         for (Integer key : o) {
             System.out.println(key + " " + r.get(key));
-        }
+        } */
 
     }
 }

@@ -18,7 +18,6 @@ public class BSTMap<K extends Comparable<? super K>, V> {
     public void clear () {root = null;}
 
 
-
     public V get (K key) {
         return contains(root, key);
     }

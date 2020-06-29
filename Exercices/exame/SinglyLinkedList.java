@@ -195,6 +195,8 @@ public class SinglyLinkedList <T>{
     public SinglyLinkedList<T> rotate (int k) {
         SinglyLinkedList<T> l = new SinglyLinkedList<>();
 
+        l.first = new Node<>(null,null);
+        l.size = size;
         Node<T> cur = first;
         Node<T> cur2 = first;
         int rots = k % size;

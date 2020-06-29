@@ -6,7 +6,8 @@ import java.util.Iterator;
 import java.util.Scanner;
 import java.util.Set;
 
-class Person<T> {
+
+class Person {
     private String name;
     private int idade;
 
@@ -127,7 +128,8 @@ public class test {
 
         int num = 16; 
         System.out.println((num & 1) == 0); // ver se num é par
-        System.out.println((15 & 0b1011));
+        System.out.println((15 & 0b1011)); // Desligar antepenultimo bit
+        System.out.println(15 & (~4)) ; // Desligar antepenultimo bit 
         System.out.println((4 & 0b10) >> 1); // Penultimo bit 
     }
 }
