@@ -65,8 +65,46 @@ class Solution1 {
                 System.out.print("0");
             }
         }
-    } */
+    }
 
+// Find if a string s is substring of a string t - https://leetcode.com/problems/is-subsequence/
+
+public boolean isSubsequence(String s, String t) {
+    if (s.length() == 0)
+        return true;
+        
+    int s_i = 0;
+    
+    for (int i = 0; i < t.length(); ++i) {
+        if (s.charAt(s_i) == t.charAt(i)) {
+            s_i += 1;
+            if (s_i == s.length())
+                return true;
+        }
+    }
+    
+    return false;
+}
+
+// Given an integer array, find the contiguous subarray with the largest sum and return the sum - https://leetcode.com/problems/maximum-subarray/
+
+public int maxSubArray(int[] nums) {
+    int[] dp = new int[nums.length];
+    dp[0] = nums[0];
+    int max = dp[0];
+    
+    for (int i = 1; i < nums.length; ++i) {
+        int inc = dp[i-1] + nums[i];
+        
+        dp[i] = inc > nums[i]? inc: nums[i];
+        if (dp[i] > max)
+            max = dp[i];
+    }
+    
+    return max;
+}
+
+*/
 ////////////////////////
 ////////*Extra*/////////
 ///////////////////////
